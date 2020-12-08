@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/signup.dart';
 
+
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,7 @@ Widget nameField(nameController){
           borderRadius: BorderRadius.circular(40.0),
         ),*/
         labelText: 'User Name',
-          prefixIcon: Icon(Icons.account_circle_rounded),
+        prefixIcon: Icon(Icons.account_circle_rounded),
       ),
     ),
   );
@@ -103,7 +104,7 @@ Widget passwordField(passwordController){
         /*border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),*/
-        labelText: 'Password',
+          labelText: 'Password',
           prefixIcon: Icon(Icons.lock)
       ),
     ),
@@ -124,18 +125,18 @@ Widget submitButton(nameController, passwordController){
       child: SizedBox(
           height: 50,
           width: 100,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        textColor: Colors.white,
-        color: Colors.pink,
-        child: Text('Login'),
-        onPressed: () {
-          //print(nameController.text);
-          //print(passwordController.text);
-        },
-      )));
+          child: RaisedButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            textColor: Colors.white,
+            color: Colors.pink,
+            child: Text('Login'),
+            onPressed: () {
+              //print(nameController.text);
+              //print(passwordController.text);
+            },
+          )));
 }
 Widget subText2(){
   return new Container(
@@ -144,7 +145,7 @@ Widget subText2(){
     child: Text(
       'Or connect using',
       style: TextStyle(
-        color: Colors.grey[500]
+          color: Colors.grey[500]
       ),
     ),
   );
@@ -154,17 +155,17 @@ Widget fgButton(){
     child: Row(
       children: <Widget>[
         FlatButton(
-            onPressed: (){},
-            textColor: Colors.white,
-            color: Colors.blue[700],
-            child: Text('Facebook'),
+          onPressed: (){},
+          textColor: Colors.white,
+          color: Colors.blue[700],
+          child: Text('Facebook'),
         ),
         SizedBox(width: 5),
         FlatButton(
-            onPressed: (){},
-            textColor: Colors.white,
-            color: Colors.red,
-            child: Text('Google'),
+          onPressed: (){},
+          textColor: Colors.white,
+          color: Colors.red,
+          child: Text('Google'),
         )
       ],
       mainAxisAlignment: MainAxisAlignment.center,
