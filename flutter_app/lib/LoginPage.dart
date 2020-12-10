@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/signup.dart';
+import 'package:overlay_support/overlay_support.dart';
+import 'package:testing_app/SignUpPage.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -19,11 +21,53 @@ class SignInScreen extends StatefulWidget {
 class _LoginPageState extends State<SignInScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging();
+
+  @override
+  void initState(){
+    firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        // _showItemDialog(message);
+        showOverlayNotification((context) {
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            child: SafeArea(
+              child: ListTile(
+                leading: SizedBox.fromSize(
+                    size: const Size(40, 40),
+                    child: ClipOval(
+                        child: Container(
+                          color: Colors.black,
+                        ))),
+                title: Text(message['notification']['title']),
+                subtitle: Text(message['notification']['body']),
+                trailing: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      OverlaySupportEntry.of(context).dismiss();
+                    }),
+              ),
+            ),
+          );
+        }, duration: Duration(milliseconds: 4000));
+      },
+      onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // _navigateToItemDetail(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // _navigateToItemDetail(message);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -45,9 +89,9 @@ class _LoginPageState extends State<SignInScreen> {
 Widget imageAtTop(){
   return new Container(
       alignment: Alignment.topCenter,
-      padding: EdgeInsets.only(top: 20),
+      padding: EdgeInsets.only(top: 40),
       child: Image(
-        image: AssetImage('assets/images/butterfly.jpg'),
+        image: AssetImage('assets/butterfly.jpg'),
         height: 100,
         width: 100,
       )
@@ -192,4 +236,18 @@ Widget signupPage(context){
         ],
         mainAxisAlignment: MainAxisAlignment.center,
       ));
+}
+
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) async {
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+  }
+
+  // Or do other work.
 }

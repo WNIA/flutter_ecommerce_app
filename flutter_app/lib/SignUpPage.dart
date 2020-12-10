@@ -1,15 +1,15 @@
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/signin.dart';
-// import 'package:email_validator/email_validator.dart';
+import 'package:testing_app/LoginPage.dart';
+
 
 class SignUpPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SignUpScreen(),
-    );
-  }
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: SignUpScreen(),
+  );
+}
 }
 
 class SignUpScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class _SignUpPageState extends State<SignUpScreen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-   TextEditingController phoneController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController confpasswordController = TextEditingController();
   // bool isValid = false;
 
@@ -64,7 +64,7 @@ Widget welcomeText(){
 Widget subText1(){
   return new Container(
       alignment: Alignment.center,
-     padding: EdgeInsets.fromLTRB(10,10,10,0),
+      padding: EdgeInsets.fromLTRB(10,10,10,0),
       child: Text(
         'Create an account',
         style: TextStyle(fontSize: 20, color: Colors.grey[500]),
@@ -76,8 +76,8 @@ Widget nameField(nameController){
     child: TextField(
       controller: nameController,
       decoration: InputDecoration(
-     //   border: OutlineInputBorder(),
-        labelText: 'User Name',
+        //   border: OutlineInputBorder(),
+          labelText: 'User Name',
           prefixIcon: Icon(Icons.person)
       ),
     ),
@@ -89,9 +89,9 @@ Widget emailField(emailController){
     child: TextField(
       controller: emailController,
       decoration: InputDecoration(
-       // border: OutlineInputBorder(),
-        labelText: 'Email',
-        prefixIcon: Icon(Icons.email)
+        // border: OutlineInputBorder(),
+          labelText: 'Email',
+          prefixIcon: Icon(Icons.email)
       ),
 
     ),
@@ -99,7 +99,7 @@ Widget emailField(emailController){
 }
 Widget pCField(country, phoneController, code){
   return new Container(
-      // padding: EdgeInsets.all(10),
+    // padding: EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           DropDownField(
@@ -113,15 +113,15 @@ Widget pCField(country, phoneController, code){
           ),
           TextField(
             decoration: InputDecoration(
-          //border: OutlineInputBorder(),
-            labelText: 'Phone',
-            prefixIcon: Icon(Icons.phone)
+              //border: OutlineInputBorder(),
+                labelText: 'Phone',
+                prefixIcon: Icon(Icons.phone)
             ),
           ),
 
         ],
         mainAxisSize: MainAxisSize.min,
-  )
+      )
   );
 }
 Widget passwordField(passwordController){
@@ -134,8 +134,8 @@ Widget passwordField(passwordController){
         //border: OutlineInputBorder(),
           labelText: 'Password',
           prefixIcon: Icon(Icons.lock)
-        ),
       ),
+    ),
 
   );
 }
@@ -147,7 +147,7 @@ Widget confirmPassword(confpasswordController){
       controller: confpasswordController,
       decoration: InputDecoration(
         //border: OutlineInputBorder(),
-        labelText: 'Confirm Password',
+          labelText: 'Confirm Password',
           prefixIcon: Icon(Icons.lock)
       ),
     ),

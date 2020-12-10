@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/signin.dart';
+import 'package:testing_app/LoginPage.dart';
+//import 'package:testing_app/SignUpPage.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 void main() {
-  runApp(MyApp());
+  // runApp(MyApp());
+  runApp(OverlaySupport(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
+      //home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
