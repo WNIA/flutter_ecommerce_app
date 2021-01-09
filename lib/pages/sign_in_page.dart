@@ -77,6 +77,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
+  // currently unused - @WNIA
   Future _showDialogBox(String title, String content) async {
     return showDialog(
         context: context,
