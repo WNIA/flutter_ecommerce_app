@@ -7,9 +7,9 @@ class SharedPrefs{
   static String sharedPrefUserNameKey = "USERNAMEKEY";
 
   //TODO: catch all data from login api - @WNIA
-  
+
   /*
-   * Saving data to shared preferences
+   * Saving data retrieved from login api to shared preferences
    */
   static Future<bool> saveUserLoggedInSharedPref(bool isUserLoggedIn) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

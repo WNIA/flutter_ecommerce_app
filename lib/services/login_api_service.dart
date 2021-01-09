@@ -1,4 +1,3 @@
-import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/models/login_request_model.dart';
 import 'package:autism_project_demo_2/models/login_response_model.dart';
 import 'package:http/http.dart' as http;
@@ -8,7 +7,7 @@ class LoginAPIService {
 
   Future<LoginResponseModel> fetchLoginResponse(LoginRequestModel requestModel) async {
     final response = await http.post(url, body: loginRequestToJson(requestModel));
-    if (response.statusCode == 200 || response.statusCode == 404) {
+    if (response.statusCode == 200) {
       return loginResponseFromJson(response.body);
     }
     else {

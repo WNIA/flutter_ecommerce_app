@@ -37,19 +37,19 @@ class LoginResponseModel {
 }
 
 class Data {
-  final int id;
-  final String name;
-  final String email;
-  final String password;
-  final String mobileNumber;
-  final int gender;
-  final String nid;
-  final int status;
-  final DateTime created;
-  final String picture;
-  final int deliveryStatus;
-  final dynamic latitude;
-  final dynamic longitude;
+  int id;
+  String name;
+  String email;
+  String password;
+  String mobileNumber;
+  int gender;
+  String nid;
+  int status;
+  DateTime created;
+  String picture;
+  int deliveryStatus;
+  dynamic latitude;
+  dynamic longitude;
 
   Data({
     this.id,
