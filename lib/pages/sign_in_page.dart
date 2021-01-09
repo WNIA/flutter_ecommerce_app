@@ -1,5 +1,6 @@
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/models/login_request_model.dart';
+import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/services/login_api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -57,18 +58,20 @@ class _SignInScreenState extends State<SignInScreen> {
 
       print(_loginRequestModel.toJson());
 
-      setState(() {
-      });
+      setState(() {});
 
       _loginAPIService.fetchLoginResponse(_loginRequestModel).then((_response) {
         if (_response != null) {
           //TODO: Simplify saving data in shared preferences - @WNIA
+
           SharedPrefs.saveUserLoggedInSharedPref(_response.success);
           SharedPrefs.saveUserIDSharedPref(_response.data.id);
           SharedPrefs.saveUserJWTSharedPref(_response.jwt);
           SharedPrefs.saveUserNameSharedPref(_response.data.name);
-          _showDialogBox("welcome", _response.data.name);
-          //TODO: Navigation - @WNIA
+
+          setState(() {});
+
+          Navigator.pushNamed(context, OrderDisplayPage.routeName);
         }
       });
     }

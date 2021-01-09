@@ -26,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   IconButton(
                     icon: Icon(Icons.arrow_back_ios),
-                    onPressed: () => widget.toggle(),
+                    onPressed: () => widget.toggle(),//go back to
                   ),
                   Text('Sign Up',
                       style:
