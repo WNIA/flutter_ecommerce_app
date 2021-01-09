@@ -57,9 +57,9 @@ class Data {
   double orderLatitude;
   double orderLongitude;
   String orderArea;
-  Name name;
+  String name;
   String mobileNumber;
-  Email email;
+  String email;
   String picture;
   double distance;
 
@@ -72,9 +72,9 @@ class Data {
     orderLatitude: json["OrderLatitude"].toDouble(),
     orderLongitude: json["OrderLongitude"].toDouble(),
     orderArea: json["OrderArea"],
-    name: nameValues.map[json["Name"]],
+    name: json["Name"],
     mobileNumber: json["MobileNumber"],
-    email: emailValues.map[json["Email"]],
+    email: json["Email"],
     picture: json["Picture"],
     distance: json["distance"].toDouble(),
   );
@@ -88,36 +88,11 @@ class Data {
     "OrderLatitude": orderLatitude,
     "OrderLongitude": orderLongitude,
     "OrderArea": orderArea,
-    "Name": nameValues.reverse[name],
+    "Name": name,
     "MobileNumber": mobileNumber,
-    "Email": emailValues.reverse[email],
+    "Email": email,
     "Picture": picture,
     "distance": distance,
   };
 }
 
-enum Email { EVANKHAN1000_GMAIL_COM }
-
-final emailValues = EnumValues({
-  "evankhan1000@gmail.com": Email.EVANKHAN1000_GMAIL_COM
-});
-
-enum Name { EVAN_AHMED }
-
-final nameValues = EnumValues({
-  "Evan Ahmed": Name.EVAN_AHMED
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
-}
