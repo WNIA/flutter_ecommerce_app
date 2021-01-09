@@ -1,4 +1,4 @@
-import 'package:autism_project_demo_2/models/pending_order_pagination_request_model.dart';
+import 'package:autism_project_demo_2/models/pending_order_request_model.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +9,19 @@ class PendingOrderPage extends StatefulWidget {
 
 class _PendingOrderPageState extends State<PendingOrderPage> {
   PendingOrderAPIService _pendingOrderAPIService = new PendingOrderAPIService();
-  PendingOrderPaginationRequestModel _requestModel;
+  PendingOrderRequestModel _requestModel;
 
   @override
   void initState() {
-    _requestModel = new PendingOrderPaginationRequestModel();
+    _requestModel = new PendingOrderRequestModel();
     getPendingOrderList();
     super.initState();
   }
 
+  /*
+  * to fetch pending order list from rest api
+  * @WNIA
+  */
   getPendingOrderList() async {
     _requestModel.limit = 10;
     _requestModel.page = 1;

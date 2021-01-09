@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
-import 'package:autism_project_demo_2/models/pending_order_pagination_request_model.dart';
+import 'package:autism_project_demo_2/models/pending_order_request_model.dart';
 import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,10 +15,9 @@ class PendingOrderAPIService {
   }
 
   Future<PendingOrderResponseModel> fetchPendingOrderResponse(
-      PendingOrderPaginationRequestModel requestModel) async {
+      PendingOrderRequestModel requestModel) async {
     String url =
         'http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php/';
-    String token = await SharedPrefs.getUserJWTSharedPref();
     try {
       final response = await http.post(url,
           body: json.encode(requestModel), headers: getHeaders());

@@ -23,13 +23,17 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  getLoggedInState() async{
+  /*
+   * check if user is logged in - @WNIA
+   */
+  getLoggedInState() async {
     await SharedPrefs.getUserLoggedInSharedPref().then((value) {
       setState(() {
         userLoggedIn = value;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -41,7 +45,6 @@ class _MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       home: userLoggedIn ? OrderDisplayPage() : Authenticate(),
-      //TODO: home: loggedin ? page_? : Authentication - @WNIA
       routes: routeList(),
     );
   }
