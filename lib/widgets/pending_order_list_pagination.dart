@@ -33,8 +33,6 @@ class _PendingOrderListPaginationState
 
 /*
 * _scrollListener fetches more data when it reaches the end of the screen
-* TODO: have to fix conditions for both scrolling and output
-* TODO: search CONDITIONS for page must be improved
 * @WNIA*/
   _scrollListener() async {
     try {
@@ -54,8 +52,8 @@ class _PendingOrderListPaginationState
   }
 
   /*
-  * TODO: fix output conditions
-  *  TODO: must not show the same output again*/
+  * Listview of paginated items - @WNIA
+  */
   @override
   Widget build(BuildContext context) {
     return Expanded(
