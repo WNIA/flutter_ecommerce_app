@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
           setState(() {});
 
-          Navigator.pushNamed(context, OrderDisplayPage.routeName);
+          Navigator.pushReplacementNamed(context, OrderDisplayPage.routeName);
         }
       });
     }

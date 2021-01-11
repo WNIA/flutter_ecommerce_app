@@ -33,54 +33,56 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
       appBar: AppBar(
         title: Text("Order"),
       ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    pendingSelected = true;
-                  });
-                },
-                child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: 50,
-                    color: pendingSelected ? Color(0xffeceff1) : Colors.white,
-                    child: Center(
-                        child: Text("Pending",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: pendingSelected
-                                    ? Colors.black
-                                    : Colors.grey)))),
-              ),
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    pendingSelected = false;
-                  });
-                },
-                child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: 50,
-                    color: !pendingSelected ? Color(0xffeceff1) : Colors.white,
-                    child: Center(
-                        child: Text("Delivered",
-                            style: TextStyle(
-                                fontSize: 16,
-                                color: !pendingSelected
-                                    ? Colors.black
-                                    : Colors.grey)))),
-              ),
-            ],
-          ),
-          Container(
-            child: pendingSelected ? PendingOrderPage() : DeliveredOrderPage(),
-          )
-        ],
-      ),
+      body: orderPageItems(context),
+    );
+  }
+
+  orderPageItems(BuildContext context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                setState(() {
+                  pendingSelected = true;
+                });
+              },
+              child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: 50,
+                  color: pendingSelected ? Color(0xffeceff1) : Colors.white,
+                  child: Center(
+                      child: Text("Pending",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: pendingSelected
+                                  ? Colors.black
+                                  : Colors.grey)))),
+            ),
+            InkWell(
+              onTap: () {
+                setState(() {
+                  pendingSelected = false;
+                });
+              },
+              child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: 50,
+                  color: !pendingSelected ? Color(0xffeceff1) : Colors.white,
+                  child: Center(
+                      child: Text("Delivered",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: !pendingSelected
+                                  ? Colors.black
+                                  : Colors.grey)))),
+            ),
+          ],
+        ),
+        pendingSelected ? PendingOrderPage() : DeliveredOrderPage()
+      ],
     );
   }
 }
