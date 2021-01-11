@@ -15,13 +15,43 @@ class PendingOrderListPagination extends StatefulWidget {
 
 class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
-bool isLoading = false;
-LocalJsonService localJsonService = new LocalJsonService();
+  bool isLoading = false;
+  LocalJsonService localJsonService = new LocalJsonService();
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  _scrollListener() async {
+    if (_controller.position.extentAfter < 1600) {
+      if(widget.currentPage < 3){
+        print(".................${widget.currentPage}");
+        List temp = await localJsonService.fetchLocalJson(
+            context, (widget.currentPage + 1));
+        print("${widget.currentPage}....................................");
+        setState(() {
+          widget.currentPage++;
+          widget.data.addAll(temp);
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
             shrinkWrap: true,
+            controller: _controller,
             itemCount: widget.data.length,
             itemBuilder: (BuildContext context, int index) {
               if (index == widget.data.length - 1)
@@ -31,7 +61,7 @@ LocalJsonService localJsonService = new LocalJsonService();
             }));
   }
 
-  pendingOrderListItem(int index, dynamic data) {
+  pendingOrderListItem(int index, List data) {
     DateTime date = DateTime.parse(data[index]['Created']);
     String format = DateFormat('dd/MM/yyyy').format(date);
     return Padding(
