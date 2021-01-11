@@ -1,24 +1,39 @@
-import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
+import 'package:autism_project_demo_2/services/pending_order_local_json.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class PendingOrderList extends StatelessWidget {
-  final PendingOrderResponseModel pendingOrderData;
+class PendingOrderListPagination extends StatefulWidget {
+  List data;
   int currentPage;
 
-  PendingOrderList(this.pendingOrderData, this.currentPage);
+  PendingOrderListPagination(this.data, this.currentPage);
 
+  @override
+  _PendingOrderListPaginationState createState() =>
+      _PendingOrderListPaginationState();
+}
+
+class _PendingOrderListPaginationState
+    extends State<PendingOrderListPagination> {
+bool isLoading = false;
+LocalJsonService localJsonService = new LocalJsonService();
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: ListView.builder(
             shrinkWrap: true,
-            itemCount: pendingOrderData.data.length,
+            itemCount: widget.data.length,
             itemBuilder: (BuildContext context, int index) {
-                return pendingOrderListItem(index, pendingOrderData);
+              if (index == widget.data.length - 1)
+                return Center(child: CircularProgressIndicator());
+              else
+                return pendingOrderListItem(index, widget.data);
             }));
   }
 
-  pendingOrderListItem(int index, PendingOrderResponseModel orders) {
+  pendingOrderListItem(int index, dynamic data) {
+    DateTime date = DateTime.parse(data[index]['Created']);
+    String format = DateFormat('dd/MM/yyyy').format(date);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Container(
@@ -37,19 +52,19 @@ class PendingOrderList extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 27,
-                  backgroundImage: orders.data[index].picture == null
+                  backgroundImage: data[index]["Picture"] == null
                       ? AssetImage('assets/images/placeholder_image.png')
-                      : NetworkImage(orders.data[index].picture),
+                      : NetworkImage(data[index]["Picture"]),
                 ),
                 SizedBox(width: 8),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(orders.data[index].name,
+                    Text(data[index]["Name"],
                         style: TextStyle(color: Colors.grey[600])),
-                    Text(orders.data[index].mobileNumber,
+                    Text(data[index]["MobileNumber"],
                         style: TextStyle(color: Colors.grey[600])),
-                    Text(orders.data[index].email,
+                    Text(data[index]["Email"],
                         style: TextStyle(color: Colors.grey[600]))
                   ],
                 ),
@@ -75,7 +90,7 @@ class PendingOrderList extends StatelessWidget {
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 Flexible(
-                    child: Text(orders.data[index].orderAddress,
+                    child: Text(data[index]["OrderAddress"],
                         overflow: TextOverflow.ellipsis, maxLines: 1)),
               ],
             ),
@@ -85,7 +100,7 @@ class PendingOrderList extends StatelessWidget {
                 Text("Area: ",
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text(orders.data[index].orderArea),
+                Text(data[index]["OrderArea"]),
               ],
             ),
             SizedBox(height: 2),
@@ -94,8 +109,7 @@ class PendingOrderList extends StatelessWidget {
                 Text("Order Date: ",
                     style:
                         TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text(
-                    "${orders.data[index].created.day}/${orders.data[index].created.month}/${orders.data[index].created.year}"),
+                Text(format),
               ],
             ),
             Row(
