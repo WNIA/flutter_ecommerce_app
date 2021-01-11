@@ -26,6 +26,7 @@ class _PendingOrderPageState extends State<PendingOrderPage> {
 
   /*
   * to fetch pending order list from rest api
+  * UNUSED FOR NOW
   * @WNIA
   */
   getPendingOrderList() async {
@@ -68,7 +69,7 @@ class _PendingOrderPageState extends State<PendingOrderPage> {
     });
 
   }
-
+//UNUSED FOR NOW - WNIA
   FutureBuilder<String> buildFutureBuilder(BuildContext context) {
     return FutureBuilder(
     future: fetchData(context, 1),
@@ -80,7 +81,7 @@ class _PendingOrderPageState extends State<PendingOrderPage> {
     },
   );
   }
-
+//UNUSED WNIA
   Future<String> fetchData(BuildContext context, int page) async {
     String response = await DefaultAssetBundle.of(context)
         .loadString('assets/json/pending_order_${page}.json');

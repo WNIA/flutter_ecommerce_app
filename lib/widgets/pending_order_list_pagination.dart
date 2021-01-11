@@ -31,21 +31,31 @@ class _PendingOrderListPaginationState
     super.dispose();
   }
 
+/*
+* _scrollListener fetches more data when it reaches the end of the screen
+* TODO: have to fix conditions for both scrolling and output
+* TODO: search CONDITIONS for page must be improved
+* @WNIA*/
   _scrollListener() async {
-    if (_controller.position.extentAfter < 1600) {
-      if(widget.currentPage < 3){
-        print(".................${widget.currentPage}");
-        List temp = await localJsonService.fetchLocalJson(
-            context, (widget.currentPage + 1));
-        print("${widget.currentPage}....................................");
-        setState(() {
-          widget.currentPage++;
-          widget.data.addAll(temp);
-        });
+    try {
+      if (widget.currentPage < 3) {
+        if (_controller.offset >= _controller.position.maxScrollExtent && !_controller.position.outOfRange) {
+          List temp = await localJsonService.fetchLocalJson(
+              context, (widget.currentPage + 1));
+          setState(() {
+            widget.currentPage++;
+            widget.data.addAll(temp);
+          });
+        }
       }
+    } catch (e) {
+      print(e);
     }
   }
 
+  /*
+  * TODO: fix output conditions
+  *  TODO: must not show the same output again*/
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -54,9 +64,9 @@ class _PendingOrderListPaginationState
             controller: _controller,
             itemCount: widget.data.length,
             itemBuilder: (BuildContext context, int index) {
-              if (index == widget.data.length - 1)
-                return Center(child: CircularProgressIndicator());
-              else
+              // if (index == widget.data.length - 1)
+              //   return Center(child: CircularProgressIndicator());
+              // else
                 return pendingOrderListItem(index, widget.data);
             }));
   }
