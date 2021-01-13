@@ -1,28 +1,48 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:autism_project_demo_2/models/pending_order_request_model.dart';
+import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
-import 'package:http/http.dart' as http;
 
 class PendingOrderAPIService {
-  Map<String, String> getHeaders() {
-    Map<String, String> headers = {
-      "Accept": "application/json",
-      "Authorization":
-          "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJpYXQiOjE2MTAwMTYyMzMsIm5iZiI6MTYxMDAxNjI0MywiZXhwIjoxNjQxMTIwMjMzLCJhdWQiOiJteXVzZXJzIiwiZGF0YSI6eyJJZCI6MiwiTmFtZSI6Ik1kIFNhaWZ1bCBJc2xhbSIsIkVtYWlsIjoiZXZhbmtoYW4xMDBAaG90bWFpbC5jb20ifX0.t0nN1upqJumKxeCwKO_yaoRKgyiXHRUgXotPLc3-h6xBKdOjkTVxm2jubiK6BUWAMRvszcPrWVdHovTHqNBGnw"
-    };
-  }
-
-  Future<PendingOrderResponseModel> fetchPendingOrderResponse(
-      PendingOrderRequestModel requestModel) async {
-    String url =
-        'http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php/';
+  Future<List> fetchPendingOrderPagination(int page) async {
     try {
-      final response = await http.post(url,
-          body: json.encode(requestModel), headers: getHeaders());
-      print(response.statusCode);
-    } catch (err) {
-      print(err);
+      String url =
+          "http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php";
+      String token = await SharedPrefs.getUserJWTSharedPref();
+      final client = HttpClient();
+      final request = await client.postUrl(Uri.parse(url));
+      request.headers
+          .set("Content-Type", "application/json", preserveHeaderCase: true);
+      request.headers
+          .set("Accept", "application/json", preserveHeaderCase: true);
+      request.headers.set("Authorization", token, preserveHeaderCase: true);
+      request.write(
+          '{"limit": 10,"page": $page,"Latitude": 23.7747523,"Longititude": 90.3654215}');
+      final response = await request.close();
+      final str = StringBuffer();
+      final strcomplete = Completer<String>();
+      String s;
+      PendingOrderResponseModel responseModel;
+      List data = new List();
+
+      response.transform(utf8.decoder).listen((contents) {
+        str.write(contents);
+      },
+      onDone: () => strcomplete.complete(str.toString()));
+      s = await strcomplete.future;
+      responseModel = pendingOrderResponseFromJson(s);
+      int len = responseModel.data.length;
+      for (int i = 0; i < len; i++) {
+        data.add(responseModel.data[i].toJson());
+      }
+
+      // print("return data.......<<<<");
+      return data;
+    } catch (e) {
+      print(e);
     }
+    // print("page.........<<<");
   }
 }

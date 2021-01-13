@@ -1,4 +1,4 @@
-import 'package:autism_project_demo_2/services/pending_order_local_json.dart';
+import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -16,7 +16,7 @@ class PendingOrderListPagination extends StatefulWidget {
 class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
   bool isLoading = false;
-  LocalJsonService localJsonService = new LocalJsonService();
+  PendingOrderAPIService _apiService = new PendingOrderAPIService();
   ScrollController _controller;
 
   @override
@@ -33,18 +33,21 @@ class _PendingOrderListPaginationState
 
 /*
 * _scrollListener fetches more data when it reaches the end of the screen
+* method for pagination
 * @WNIA*/
   _scrollListener() async {
     try {
-      if (widget.currentPage < 3) {
-        if (_controller.offset >= _controller.position.maxScrollExtent && !_controller.position.outOfRange) {
-          List temp = await localJsonService.fetchLocalJson(
-              context, (widget.currentPage + 1));
-          setState(() {
-            widget.currentPage++;
-            widget.data.addAll(temp);
-          });
-        }
+      if (_controller.offset >= _controller.position.maxScrollExtent &&
+          !_controller.position.outOfRange) {
+        print("end scroll.............");
+        List temp = await _apiService
+            .fetchPendingOrderPagination(widget.currentPage + 1);
+        // print("....... ${widget.currentPage}");
+        setState(() {
+          widget.currentPage++;
+          widget.data.addAll(temp);
+          // print("${widget.currentPage} ......");
+        });
       }
     } catch (e) {
       print(e);
@@ -65,7 +68,7 @@ class _PendingOrderListPaginationState
               // if (index == widget.data.length - 1)
               //   return Center(child: CircularProgressIndicator());
               // else
-                return pendingOrderListItem(index, widget.data);
+              return pendingOrderListItem(index, widget.data);
             }));
   }
 
