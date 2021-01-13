@@ -39,9 +39,9 @@ class _PendingOrderListPaginationState
     try {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
+        print("end scroll.............");
         List temp = await _apiService
             .fetchPendingOrderPagination(widget.currentPage + 1);
-        print(temp[0]["Name"]);
         // print("....... ${widget.currentPage}");
         setState(() {
           widget.currentPage++;

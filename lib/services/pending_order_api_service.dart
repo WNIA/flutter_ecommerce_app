@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -20,21 +21,28 @@ class PendingOrderAPIService {
       request.write(
           '{"limit": 10,"page": $page,"Latitude": 23.7747523,"Longititude": 90.3654215}');
       final response = await request.close();
-
+      final str = StringBuffer();
+      final strcomplete = Completer<String>();
+      String s;
       PendingOrderResponseModel responseModel;
       List data = new List();
 
       response.transform(utf8.decoder).listen((contents) {
-        responseModel = pendingOrderResponseFromJson(contents);
-        int len = responseModel.data.length;
-        // data.addAll(responseModel.data);
-        for (int i = 0; i < len; i++) {
-          data.add(responseModel.data[i].toJson());
-        }
-      });
+        str.write(contents);
+      },
+      onDone: () => strcomplete.complete(str.toString()));
+      s = await strcomplete.future;
+      responseModel = pendingOrderResponseFromJson(s);
+      int len = responseModel.data.length;
+      for (int i = 0; i < len; i++) {
+        data.add(responseModel.data[i].toJson());
+      }
+
+      // print("return data.......<<<<");
       return data;
     } catch (e) {
       print(e);
     }
+    // print("page.........<<<");
   }
 }
