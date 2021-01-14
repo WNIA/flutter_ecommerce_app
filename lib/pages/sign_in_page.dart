@@ -65,9 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
           //TODO: Simplify saving data in shared preferences - @WNIA
 
           SharedPrefs.saveUserLoggedInSharedPref(_response.success);
-          SharedPrefs.saveUserIDSharedPref(_response.data.id);
           SharedPrefs.saveUserJWTSharedPref(_response.jwt);
-          SharedPrefs.saveUserNameSharedPref(_response.data.name);
 
           setState(() {});
 

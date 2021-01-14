@@ -5,7 +5,7 @@ import 'package:autism_project_demo_2/pages/pending_order_page.dart';
 import 'package:flutter/material.dart';
 
 class OrderDisplayPage extends StatefulWidget {
-  static final routeName = '/pending_order_page';
+  static final routeName = '/order_page';
 
   @override
   _OrderDisplayPageState createState() =>
