@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:autism_project_demo_2/services/pending_order_local_json.dart';
 
 class PendingOrderPage extends StatefulWidget {
+  static final routeName = '/pending_order_page';
   @override
   _PendingOrderPageState createState() => _PendingOrderPageState();
 }

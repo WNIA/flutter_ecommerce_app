@@ -1,3 +1,4 @@
+import 'package:autism_project_demo_2/pages/pending_order_details_and_map_page.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +16,6 @@ class PendingOrderListPagination extends StatefulWidget {
 
 class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
-  bool isLoading = false;
   PendingOrderAPIService _apiService = new PendingOrderAPIService();
   ScrollController _controller;
 
@@ -66,9 +66,9 @@ class _PendingOrderListPaginationState
             itemCount: widget.data.length,
             itemBuilder: (BuildContext context, int index) {
               // if (index == widget.data.length - 1)
-              //   return Center(child: CircularProgressIndicator());
+              //   return _progressIndicator();
               // else
-              return pendingOrderListItem(index, widget.data);
+                return pendingOrderListItem(index, widget.data);
             }));
   }
 
@@ -157,7 +157,11 @@ class _PendingOrderListPaginationState
               children: [
                 Spacer(),
                 RaisedButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PendingOrderDetailsPage(data[index])));
+
+                  },
                   color: Colors.lightBlue,
                   child: Text('View', style: TextStyle(color: Colors.white)),
                   shape: RoundedRectangleBorder(
