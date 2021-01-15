@@ -1,5 +1,7 @@
+import 'package:autism_project_demo_2/helper/authenticate.dart';
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
+import 'package:autism_project_demo_2/helper/signout.dart';
 import 'package:autism_project_demo_2/pages/delivered_order_page.dart';
 import 'package:autism_project_demo_2/pages/pending_order_page.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +31,6 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Order"),
-      ),
-      body: orderPageItems(context),
-    );
-  }
-
-  orderPageItems(BuildContext context) {
     return Column(
       children: [
         Row(
