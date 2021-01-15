@@ -1,3 +1,4 @@
+import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/pages/pending_order_details_and_map_page.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,10 @@ class _PendingOrderListPaginationState
   void initState() {
     super.initState();
     _controller = new ScrollController()..addListener(_scrollListener);
+    setState(() {
+      Constants.numOfPendingOrders = widget.data.length;
+      print(Constants.numOfPendingOrders);
+    });
   }
 
   @override
@@ -46,7 +51,8 @@ class _PendingOrderListPaginationState
         setState(() {
           widget.currentPage++;
           widget.data.addAll(temp);
-          // print("${widget.currentPage} ......");
+          Constants.numOfPendingOrders += temp.length;
+          print("${Constants.numOfPendingOrders} ......");
         });
       }
     } catch (e) {

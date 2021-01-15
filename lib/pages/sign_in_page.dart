@@ -1,7 +1,9 @@
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
+import 'package:autism_project_demo_2/helper/validators.dart';
 import 'package:autism_project_demo_2/models/login_request_model.dart';
 import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/services/login_api_service.dart';
+
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -18,26 +20,13 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController passwordControl = new TextEditingController();
 
   LoginAPIService _loginAPIService = new LoginAPIService();
+  Validators _validators = new Validators();
   LoginRequestModel _loginRequestModel;
 
+  final _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
   bool _obscurePassword = true;
-
-  /*
-   * validators for email and password
-   * @WNIA
-   */
-  String emailValidator(val) {
-    return RegExp(
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(val)
-        ? null
-        : "Enter valid email";
-  }
-
-  String passwordValidator(val) {
-    return val.length < 6 ? "Needs 6+ characters" : null;
-  }
+  bool isLoading;
 
   /*
    * TODO: forgotPasswordMethod will navigate to new page
@@ -55,46 +44,57 @@ class _SignInScreenState extends State<SignInScreen> {
     if (_formKey.currentState.validate()) {
       _loginRequestModel.email = emailControl.text;
       _loginRequestModel.password = passwordControl.text;
-
-      print(_loginRequestModel.toJson());
-
-      setState(() {});
-
-      _loginAPIService.fetchLoginResponse(_loginRequestModel).then((_response) {
-        if (_response != null) {
-          //TODO: Simplify saving data in shared preferences - @WNIA
-
-          SharedPrefs.saveUserLoggedInSharedPref(_response.success);
-          SharedPrefs.saveUserJWTSharedPref(_response.jwt);
-
-          setState(() {});
-
-          Navigator.pushReplacementNamed(context, OrderDisplayPage.routeName);
-        }
+      setState(() {
+        isLoading = true;
       });
-    }
-  }
+      try {
+        _loginAPIService
+            .fetchLoginResponse(_loginRequestModel)
+            .then((_response) {
+          if (_response != null) {
+            //TODO: Simplify saving data in shared preferences - @WNIA
+            SharedPrefs.saveUserLoggedInSharedPref(_response.success);
+            SharedPrefs.saveUserJWTSharedPref(_response.jwt);
 
-  // currently unused - @WNIA
-  Future _showDialogBox(String title, String content) async {
-    return showDialog(
-        context: context,
-        builder: (_) =>
-            AlertDialog(title: Text(title), content: Text(content)));
+            Navigator.pushReplacementNamed(context, OrderDisplayPage.routeName);
+          } else {
+            setState(() {
+              isLoading = false;
+            });
+            //Show Snackbar for invalid credendials - @WNIA
+            _scaffoldKey.currentState.showSnackBar(SnackBar(
+                content: Text('Please enter valid credentials'),
+                duration: Duration(seconds: 10)));
+          }
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   @override
   void initState() {
     _loginRequestModel = new LoginRequestModel();
+    setState(() {
+      isLoading = false;
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: loginItems1(context));
+    return Scaffold(
+        key: _scaffoldKey,
+        body: Stack(
+          children: [
+            loginItems(context),
+            isLoading ? overlayProgressbar() : Container(),
+          ],
+        ));
   }
 
-  loginItems1(BuildContext context) {
+  loginItems(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10.0),
       child: ListView(
@@ -131,7 +131,7 @@ class _SignInScreenState extends State<SignInScreen> {
             TextFormField(
               controller: emailControl,
               keyboardType: TextInputType.emailAddress,
-              validator: emailValidator,
+              validator: _validators.emailValidator,
               decoration: InputDecoration(
                   labelText: 'Email Address',
                   prefixIcon: Icon(Icons.email_outlined),
@@ -145,7 +145,7 @@ class _SignInScreenState extends State<SignInScreen> {
               controller: passwordControl,
               obscureText: _obscurePassword,
               keyboardType: TextInputType.text,
-              validator: passwordValidator,
+              validator: _validators.passwordValidator,
               decoration: InputDecoration(
                   labelText: 'Password',
                   prefixIcon: Icon(Icons.lock),
@@ -168,17 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 child: FlatButton(
                     onPressed: forgotPasswordMethod,
                     child: Text('Forgot Password?'))),
-            Center(
-                child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: 45,
-                    child: RaisedButton(
-                        onPressed: signInMethod,
-                        color: Colors.pink,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0)),
-                        textColor: Colors.white,
-                        child: Text('Sign In')))),
+            Center(child: submitButton(context)),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -197,5 +187,30 @@ class _SignInScreenState extends State<SignInScreen> {
             )
           ],
         ));
+  }
+
+  SizedBox submitButton(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: 45,
+      child: RaisedButton(
+          onPressed: () {
+            signInMethod();
+          },
+          color: Colors.pink,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+          textColor: Colors.white,
+          child: Text('Sign In')),
+    );
+  }
+
+  overlayProgressbar() {
+    return Positioned(
+        child: Container(
+            child: Center(
+                child: CircularProgressIndicator(
+
+                ))));
   }
 }
