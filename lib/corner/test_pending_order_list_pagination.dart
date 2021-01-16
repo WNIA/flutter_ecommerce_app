@@ -4,19 +4,19 @@ import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class PendingOrderListPagination extends StatefulWidget {
+class TestPendingOrderListPagination extends StatefulWidget {
   List data;
   int currentPage;
 
-  PendingOrderListPagination(this.data, this.currentPage);
+  TestPendingOrderListPagination(this.data, this.currentPage);
 
   @override
-  _PendingOrderListPaginationState createState() =>
-      _PendingOrderListPaginationState();
+  _TestPendingOrderListPaginationState createState() =>
+      _TestPendingOrderListPaginationState();
 }
 
-class _PendingOrderListPaginationState
-    extends State<PendingOrderListPagination> {
+class _TestPendingOrderListPaginationState
+    extends State<TestPendingOrderListPagination> {
   PendingOrderAPIService _apiService = new PendingOrderAPIService();
   ScrollController _controller;
 
@@ -66,6 +66,7 @@ class _PendingOrderListPaginationState
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        shrinkWrap: true,
         controller: _controller,
         itemCount: widget.data.length,
         itemBuilder: (BuildContext context, int index) {
@@ -174,9 +175,9 @@ class _PendingOrderListPaginationState
 
                     },
                     color: Colors.lightBlue,
+                    child: Text('View', style: TextStyle(color: Colors.white)),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    child: Text('View', style: TextStyle(color: Colors.white)),
                   ),
                   SizedBox(width: 10)
                 ],

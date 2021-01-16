@@ -20,7 +20,7 @@ class PendingOrderDetailsPage extends StatefulWidget {
 class _PendingOrderDetailsPageState extends State<PendingOrderDetailsPage> {
   GoogleMapController _mapController;
   Position _currentPosition;
-  String _currentaddress = "";
+  String _currentAddress = "";
 
 /*Setting markers to show user location[red/default] and order location[blue]
 * @WNIA
@@ -82,7 +82,7 @@ fetching route from user location to order location
 
     print(address);
     setState(() {
-      _currentaddress = address;
+      _currentAddress = address;
     });
   }
 
@@ -144,7 +144,7 @@ fetching route from user location to order location
                   Row(
                     children: [
                       Icon(Icons.place_outlined, color: Colors.blue),
-                      Text(_currentaddress, style: TextStyle(fontSize: 16))
+                      Text(_currentAddress, style: TextStyle(fontSize: 16))
                     ],
                   ),
                   Row(

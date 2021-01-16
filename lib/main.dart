@@ -2,8 +2,9 @@ import 'package:autism_project_demo_2/helper/authenticate.dart';
 import 'package:autism_project_demo_2/helper/route_list.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/pages/home_page.dart';
-import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:flutter/material.dart';
+
+import 'corner/test_home.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,6 +47,7 @@ class _MyAppState extends State<MyApp> {
         accentColor: Colors.black,
       ),
       debugShowCheckedModeBanner: false,
+      // home: userLoggedIn != null ?(userLoggedIn ? HomePage() : Authenticate()) : Authenticate(),
       home: userLoggedIn != null ?(userLoggedIn ? HomePage() : Authenticate()) : Authenticate(),
       routes: routeList(),
     );
