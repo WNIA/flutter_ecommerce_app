@@ -1,15 +1,30 @@
-import 'package:autism_project_demo_2/helper/signout.dart';
+import 'package:autism_project_demo_2/helper/constants.dart';
+import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/pages/settings_page.dart';
 import 'package:autism_project_demo_2/widgets/home_page_items.dart';
 import 'package:flutter/material.dart';
 class HomePage extends StatefulWidget {
+  static final routeName = '/home_page';
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
   int _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo();
+  }
+
+  /*Saving token in constant variable*/
+  getUserInfo() async {
+    Constants.myToken = await SharedPrefs.getUserJWTSharedPref();
+    setState(() {});
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

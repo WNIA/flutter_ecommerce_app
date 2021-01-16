@@ -5,11 +5,13 @@ import 'package:autism_project_demo_2/services/pending_order_local_json.dart';
 
 class PendingOrderPage extends StatefulWidget {
   static final routeName = '/pending_order_page';
+
   @override
   _PendingOrderPageState createState() => _PendingOrderPageState();
 }
 
 class _PendingOrderPageState extends State<PendingOrderPage> {
+
   LocalJsonService local = new LocalJsonService();
   PendingOrderAPIService _apiService = new PendingOrderAPIService();
 
@@ -18,18 +20,17 @@ class _PendingOrderPageState extends State<PendingOrderPage> {
     super.initState();
   }
 
-
   /*
    * FutureBuilder is fetching data from local json file
    */
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _apiService.fetchPendingOrderPagination(1),
+        future: Future.delayed(Duration(seconds: 8), () => _apiService.fetchPendingOrderPagination(1)),//5 sec delay to counter server error - @WNIA
         builder: (context, snapshot) {
-          List orders = snapshot.data;
+          if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
-              ? PendingOrderListPagination(orders, 1)
+              ? PendingOrderListPagination(snapshot.data, 1)
               : Center(child: CircularProgressIndicator());
         });
   }

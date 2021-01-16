@@ -13,18 +13,6 @@ class OrderDisplayPage extends StatefulWidget {
 }
 
 class _OrderDisplayPageState extends State<OrderDisplayPage> {
-  bool pendingSelected = true;
-
-  @override
-  void initState() {
-    super.initState();
-    getUserInfo();
-  }
-
-  getUserInfo() async {
-    Constants.myToken = await SharedPrefs.getUserJWTSharedPref();
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {

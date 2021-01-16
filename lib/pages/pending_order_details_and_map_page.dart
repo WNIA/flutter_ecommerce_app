@@ -78,7 +78,7 @@ fetching route from user location to order location
     String postalCode = placeMark.postalCode;
     String country = placeMark.country;
     String address =
-        "${name}, ${subLocality}, ${locality} ${postalCode}, ${country}";
+        "$name, $subLocality, $locality $postalCode, $country";
 
     print(address);
     setState(() {

@@ -19,15 +19,12 @@ class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
   PendingOrderAPIService _apiService = new PendingOrderAPIService();
   ScrollController _controller;
+  bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _controller = new ScrollController()..addListener(_scrollListener);
-    setState(() {
-      Constants.numOfPendingOrders = widget.data.length;
-      print(Constants.numOfPendingOrders);
-    });
   }
 
   @override
@@ -44,6 +41,10 @@ class _PendingOrderListPaginationState
     try {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
+        setState(() {
+          isLoading = true;
+        });
+
         print("end scroll.............");
         List temp = await _apiService
             .fetchPendingOrderPagination(widget.currentPage + 1);
@@ -51,8 +52,7 @@ class _PendingOrderListPaginationState
         setState(() {
           widget.currentPage++;
           widget.data.addAll(temp);
-          Constants.numOfPendingOrders += temp.length;
-          print("${Constants.numOfPendingOrders} ......");
+          isLoading = false;
         });
       }
     } catch (e) {
@@ -69,14 +69,20 @@ class _PendingOrderListPaginationState
         controller: _controller,
         itemCount: widget.data.length,
         itemBuilder: (BuildContext context, int index) {
-          // if (index == widget.data.length - 1)
-          //   return _progressIndicator();
-          // else
+          if (index == widget.data.length - 1)
+            return isLoading ? _overlayProgressbar() : Container();
+          else
             return pendingOrderListItem(index, widget.data);
         });
   }
 
+  _overlayProgressbar() {
+    return Container(
+        child: Center(
+            child: CircularProgressIndicator(
 
+            )));
+  }
 
   pendingOrderListItem(int index, List data) {
     DateTime date = DateTime.parse(data[index]['Created']);
