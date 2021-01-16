@@ -93,90 +93,99 @@ class _PendingOrderListPaginationState
             boxShadow: [
               BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)
             ]),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 27,
-                  backgroundImage: data[index]["Picture"] == null
-                      ? AssetImage('assets/images/placeholder_image.png')
-                      : NetworkImage(data[index]["Picture"]),
-                ),
-                SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: Row(
                   children: [
-                    Text(data[index]["Name"],
-                        style: TextStyle(color: Colors.grey[600])),
-                    Text(data[index]["MobileNumber"],
-                        style: TextStyle(color: Colors.grey[600])),
-                    Text(data[index]["Email"],
-                        style: TextStyle(color: Colors.grey[600]))
+                    CircleAvatar(
+                      radius: 27,
+                      backgroundImage: data[index]["Picture"] == null
+                          ? AssetImage('assets/images/placeholder_image.png')
+                          : NetworkImage(data[index]["Picture"]),
+                    ),
+                    SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(data[index]["Name"],
+                            style: TextStyle(color: Colors.grey[600])),
+                        Text(data[index]["MobileNumber"],
+                            style: TextStyle(color: Colors.grey[600])),
+                        Text(data[index]["Email"],
+                            style: TextStyle(color: Colors.grey[600]))
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                      child: Text('new',
+                          style: TextStyle(fontSize: 18, color: Colors.white)),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.amber[900], Colors.amber[200]])),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    )
                   ],
                 ),
-                Spacer(),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                  child: Text('new',
-                      style: TextStyle(fontSize: 18, color: Colors.white)),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.amber[900], Colors.amber[200]])),
+              ),
+              Divider(),
+              Flexible(
+                child: Row(
+                  children: [
+                    Text("Address: ",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                    Text(data[index]["OrderAddress"],
+                        overflow: TextOverflow.ellipsis, maxLines: 1),
+                  ],
                 ),
-                SizedBox(
-                  width: 10,
-                )
-              ],
-            ),
-            Divider(),
-            Row(
-              children: [
-                Text("Address: ",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Flexible(
-                    child: Text(data[index]["OrderAddress"],
-                        overflow: TextOverflow.ellipsis, maxLines: 1)),
-              ],
-            ),
-            SizedBox(height: 2),
-            Row(
-              children: [
-                Text("Area: ",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text(data[index]["OrderArea"]),
-              ],
-            ),
-            SizedBox(height: 2),
-            Row(
-              children: [
-                Text("Order Date: ",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                Text(format),
-              ],
-            ),
-            Row(
-              children: [
-                Spacer(),
-                RaisedButton(
-                  onPressed: () {
+              ),
+              SizedBox(height: 2),
+              Flexible(
 
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PendingOrderDetailsPage(data[index])));
-
-                  },
-                  color: Colors.lightBlue,
-                  child: Text('View', style: TextStyle(color: Colors.white)),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  children: [
+                    Text("Area: ",
+                        style:
+                            TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                    Text(data[index]["OrderArea"], overflow: TextOverflow.ellipsis, maxLines: 1),
+                  ],
                 ),
-                SizedBox(width: 10)
-              ],
-            )
-          ],
+              ),
+              SizedBox(height: 2),
+              Row(
+                children: [
+                  Text("Order Date: ",
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
+                  Text(format),
+                ],
+              ),
+              Row(
+                children: [
+                  Spacer(),
+                  RaisedButton(
+                    onPressed: () {
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PendingOrderDetailsPage(data[index])));
+
+                    },
+                    color: Colors.lightBlue,
+                    child: Text('View', style: TextStyle(color: Colors.white)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                  ),
+                  SizedBox(width: 10)
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

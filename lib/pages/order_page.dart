@@ -36,7 +36,7 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
+            GestureDetector(
               onTap: () {
                 setState(() {
                   pendingSelected = true;
@@ -54,7 +54,7 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
                                   ? Colors.black
                                   : Colors.grey)))),
             ),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 setState(() {
                   pendingSelected = false;
