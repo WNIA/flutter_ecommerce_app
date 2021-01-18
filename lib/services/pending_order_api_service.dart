@@ -2,16 +2,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
+import 'package:flutter/material.dart';
 
 /*
       * fetch data from server
       * HttpClient used to preserve header
       * Data chunks are stored in StringBuffer -> Completer[when completed] -> String[for json.decode] -> List[returns]
       * @WNIA*/
-class PendingOrderAPIService {
+class PendingOrderAPIService extends ChangeNotifier{
   Future<List> fetchPendingOrderPagination(int page) async {
     try {
       String url =
@@ -45,13 +45,14 @@ class PendingOrderAPIService {
         }
       }, onDone: () => completer.complete(stringBuffer.toString()));
       stringToDecode = await completer.future;
-
+      print(stringToDecode);
       responseModel = pendingOrderResponseFromJson(stringToDecode);
 
       int len = responseModel.data.length;
       for (int i = 0; i < len; i++) {
         data.add(responseModel.data[i].toJson());
       }
+      notifyListeners();
       return data;
     } catch (e) {
       print(e);

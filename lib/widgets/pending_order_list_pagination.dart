@@ -1,8 +1,8 @@
-import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/pages/pending_order_details_and_map_page.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class PendingOrderListPagination extends StatefulWidget {
   List data;
@@ -17,7 +17,6 @@ class PendingOrderListPagination extends StatefulWidget {
 
 class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
-  PendingOrderAPIService _apiService = new PendingOrderAPIService();
   ScrollController _controller;
   bool isLoading = false;
 
@@ -41,19 +40,15 @@ class _PendingOrderListPaginationState
     try {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
-        setState(() {
-          isLoading = true;
-        });
 
-        print("end scroll.............");
-        List temp = await _apiService
-            .fetchPendingOrderPagination(widget.currentPage + 1);
+        // print("end scroll.............page.....${widget.currentPage}");
+        List temp =
+            await Provider.of<PendingOrderAPIService>(context, listen: false)
+                .fetchPendingOrderPagination(widget.currentPage + 1);
         // print("....... ${widget.currentPage}");
-        setState(() {
-          widget.currentPage++;
-          widget.data.addAll(temp);
-          isLoading = false;
-        });
+        widget.data.addAll(temp);
+        widget.currentPage++;
+        setState(() {});
       }
     } catch (e) {
       print(e);
@@ -69,19 +64,15 @@ class _PendingOrderListPaginationState
         controller: _controller,
         itemCount: widget.data.length,
         itemBuilder: (BuildContext context, int index) {
-          if (index == widget.data.length - 1)
-            return isLoading ? _overlayProgressbar() : Container();
-          else
-            return pendingOrderListItem(index, widget.data);
+          // if (index == widget.data.length-1)
+          //   return isLoading ? _overlayProgressbar() : Container();
+          // else
+          return pendingOrderListItem(index, widget.data);
         });
   }
 
   _overlayProgressbar() {
-    return Container(
-        child: Center(
-            child: CircularProgressIndicator(
-
-            )));
+    return Container(child: Center(child: CircularProgressIndicator()));
   }
 
   pendingOrderListItem(int index, List data) {
@@ -126,8 +117,8 @@ class _PendingOrderListPaginationState
                     ),
                     Spacer(),
                     Container(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 3, vertical: 3),
                       child: Text('new',
                           style: TextStyle(fontSize: 18, color: Colors.white)),
                       decoration: BoxDecoration(
@@ -158,7 +149,9 @@ class _PendingOrderListPaginationState
                   Text("Area: ",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                  Flexible(child: Text(data[index]["OrderArea"], overflow: TextOverflow.ellipsis, maxLines: 1)),
+                  Flexible(
+                      child: Text(data[index]["OrderArea"],
+                          overflow: TextOverflow.ellipsis, maxLines: 1)),
                 ],
               ),
               SizedBox(height: 2),
@@ -175,9 +168,12 @@ class _PendingOrderListPaginationState
                   Spacer(),
                   RaisedButton(
                     onPressed: () {
-
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => PendingOrderDetailsPage(data[index])));
-
+                      print(index);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  PendingOrderDetailsPage(data[index], index)));
                     },
                     color: Colors.lightBlue,
                     shape: RoundedRectangleBorder(

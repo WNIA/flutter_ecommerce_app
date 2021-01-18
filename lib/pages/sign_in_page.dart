@@ -2,10 +2,10 @@ import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/helper/validators.dart';
 import 'package:autism_project_demo_2/models/login_request_model.dart';
 import 'package:autism_project_demo_2/pages/home_page.dart';
-import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/services/login_api_service.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignInScreen extends StatefulWidget {
   final Function toggle;
@@ -20,7 +20,6 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailControl = new TextEditingController();
   TextEditingController passwordControl = new TextEditingController();
 
-  LoginAPIService _loginAPIService = new LoginAPIService();
   Validators _validators = new Validators();
   LoginRequestModel _loginRequestModel;
 
@@ -49,9 +48,7 @@ class _SignInScreenState extends State<SignInScreen> {
         isLoading = true;
       });
       try {
-        _loginAPIService
-            .fetchLoginResponse(_loginRequestModel)
-            .then((_response) {
+        Provider.of<LoginAPIService>(context, listen: false).fetchLoginResponse(_loginRequestModel).then((_response) {
           if (_response != null) {
             //TODO: Simplify saving data in shared preferences - @WNIA
             SharedPrefs.saveUserLoggedInSharedPref(_response.success);
@@ -67,6 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 content: Text('Please enter valid credentials'),
                 duration: Duration(seconds: 10)));
           }
+
         });
       } catch (e) {
         print(e);
