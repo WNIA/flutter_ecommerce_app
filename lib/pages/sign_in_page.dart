@@ -53,7 +53,7 @@ class _SignInScreenState extends State<SignInScreen> {
             //TODO: Simplify saving data in shared preferences - @WNIA
             SharedPrefs.saveUserLoggedInSharedPref(_response.success);
             SharedPrefs.saveUserJWTSharedPref(_response.jwt);
-            SharedPrefs.saveUserDataSharedPref(_response.data);
+            SharedPrefs.saveUserLoginDataSharedPref(_loginRequestModel);
 
             Navigator.pushReplacementNamed(context, Initialize.routeName);
           } else {

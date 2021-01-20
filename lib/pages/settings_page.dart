@@ -1,7 +1,9 @@
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/helper/sign_out.dart';
+import 'package:autism_project_demo_2/services/login_api_service.dart';
 import 'package:autism_project_demo_2/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -9,8 +11,17 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  List userData;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LoginAPIService>(context, listen: false);
+    final _settingsData = provider.userDataList;
     return Scaffold(
       appBar: appBarMain(context, "Settings "),
       body: SingleChildScrollView(
@@ -20,13 +31,13 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Constants.dataOfUser != null ? Container(
+                child: _settingsData.data != null ? Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(Constants.dataOfUser["Name"], style: TextStyle(color: Colors.black54)),
-                      Text(Constants.dataOfUser["MobileNumber"], style: TextStyle(color: Colors.black54)),
-                      Text(Constants.dataOfUser["Email"], style: TextStyle(color: Colors.black54)),
+                      Text(_settingsData.data.name, style: TextStyle(color: Colors.black54)),
+                      Text(_settingsData.data.mobileNumber, style: TextStyle(color: Colors.black54)),
+                      Text(_settingsData.data.email, style: TextStyle(color: Colors.black54)),
                     ],
                   ),
                 ) : Container(),
@@ -36,20 +47,30 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(height: 10),
               Text('Account', style: TextStyle(fontSize: 20, color: Colors.black54, fontWeight: FontWeight.w400)),
               SizedBox(height: 14),
-              Row(
-                children: [
-                  Icon(Icons.account_circle_outlined, size: 50, color: Colors.black54),
-                  SizedBox(width: 8),
-                  Text('Profile', style: TextStyle(fontSize: 18)),
-                ],
+              GestureDetector(
+                onTap: (){
+
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.account_circle_outlined, size: 50, color: Colors.black54),
+                    SizedBox(width: 8),
+                    Text('Profile', style: TextStyle(fontSize: 18)),
+                  ],
+                ),
               ),
               SizedBox(height: 12),
-              Row(
-                children: [
-                  Icon(Icons.lock_outlined, size: 50, color: Colors.black54),
-                  SizedBox(width: 8),
-                  Text('Change Password', style: TextStyle(fontSize: 18)),
-                ],
+              GestureDetector(
+                onTap: (){
+                  
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.lock_outlined, size: 50, color: Colors.black54),
+                    SizedBox(width: 8),
+                    Text('Change Password', style: TextStyle(fontSize: 18)),
+                  ],
+                ),
               ),
               SizedBox(height: 12),
               GestureDetector(

@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
+import 'package:autism_project_demo_2/models/login_request_model.dart';
 import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/pages/settings_page.dart';
 import 'package:autism_project_demo_2/widgets/home_page_items.dart';
@@ -28,8 +27,8 @@ class _HomePageState extends State<HomePage> {
     await SharedPrefs.getUserJWTSharedPref().then((value){
       Constants.myToken = value;
     });
-    await SharedPrefs.getUserDataSharedPref().then((value){
-      Constants.dataOfUser = json.decode(value);
+    await SharedPrefs.getUserLoginDataSharedPref().then((value){
+      Constants.requestModel = loginRequestFromJson(value);
     });
     setState(() {
     });

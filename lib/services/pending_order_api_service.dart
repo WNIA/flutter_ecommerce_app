@@ -5,12 +5,22 @@ import 'dart:io';
 import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
 import 'package:flutter/material.dart';
 
+List<PendingOrderAPIService> _customerPendingOrder;
+
+List<PendingOrderAPIService> get customerPendingOrderList =>
+    _customerPendingOrder;
+
 /*
       * fetch data from server
       * HttpClient used to preserve header
       * Data chunks are stored in StringBuffer -> Completer[when completed] -> String[for json.decode] -> List[returns]
       * @WNIA*/
-class PendingOrderAPIService extends ChangeNotifier {
+class PendingOrderAPIService extends ChangeNotifier{
+
+  List<dynamic> _customerPendingOrder;
+  List<dynamic> get customerPendingOrderList =>
+      _customerPendingOrder;
+
   Future<List> fetchPendingOrderPagination(int page, String token) async {
     try {
       final stringBuffer = StringBuffer();
@@ -44,8 +54,7 @@ class PendingOrderAPIService extends ChangeNotifier {
       for (int i = 0; i < len; i++) {
         data.add(responseModel.data[i].toJson());
       }
-      notifyListeners();
-      return data;
+      return _customerPendingOrder = data;
     } catch (e) {
       print(e);
     }

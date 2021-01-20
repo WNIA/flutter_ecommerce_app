@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class LoginAPIService extends ChangeNotifier{
-
+  LoginResponseModel _userData;
+  LoginResponseModel get userDataList => _userData;
   String url = "http://199.192.28.11/stationary/v1/login-delivery-api.php";
 
   Future<LoginResponseModel> fetchLoginResponse(
       LoginRequestModel requestModel) async {
     final response =
         await http.post(url, body: loginRequestToJson(requestModel));
-notifyListeners();
     if (response.statusCode == 200) {
-      return loginResponseFromJson(response.body);
+      notifyListeners();
+      _userData = loginResponseFromJson(response.body);
     } else {
-      return null;
+      notifyListeners();
+      _userData = null;
       // throw Exception('Unable to fetch Data from rest api');
     }
+    return _userData;
   }
 }

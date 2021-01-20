@@ -2,6 +2,7 @@ import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'appbar_widget.dart';
+import 'box_deco_widget.dart';
 
 class HomePageItems extends StatefulWidget {
   @override
@@ -12,14 +13,14 @@ class _HomePageItemsState extends State<HomePageItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(context, "Home"),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
+        appBar: appBarMain(context, "Home"),
+        body: Padding(
+          padding: const EdgeInsets.all(8),
+          child: SingleChildScrollView(
+            child: Column(children: [
               Container(
-                height: 100,
+                height: 80,
+
                 decoration: boxDeco(),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -54,27 +55,23 @@ class _HomePageItemsState extends State<HomePageItems> {
               ),
               SizedBox(height: 8),
               Container(
-                height: 200,
-                decoration: boxDeco(),
-              )
-            ],
+                  height: 400,
+                  width: double.infinity,
+                  decoration: boxDeco(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text('Last Five Sales Chart'),
+                      ],
+                    ),
+                  ))
+            ]),
           ),
-        ),
-      ),
-    );
+        ));
   }
 
   TextStyle orderSummaryTextStyle() {
-    return TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 20);
-  }
-
-  BoxDecoration boxDeco() {
-    return BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(color: Colors.blue[100], blurRadius: 2, spreadRadius: 1)
-        ]);
+    return TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
   }
 }
