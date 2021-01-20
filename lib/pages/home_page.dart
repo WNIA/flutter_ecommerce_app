@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/pages/order_page.dart';
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -22,8 +25,14 @@ class _HomePageState extends State<HomePage> {
 
   /*Saving token in constant variable*/
   getUserInfo() async {
-    Constants.myToken = await SharedPrefs.getUserJWTSharedPref();
-    setState(() {});
+    await SharedPrefs.getUserJWTSharedPref().then((value){
+      Constants.myToken = value;
+    });
+    await SharedPrefs.getUserDataSharedPref().then((value){
+      Constants.dataOfUser = json.decode(value);
+    });
+    setState(() {
+    });
   }
   @override
   Widget build(BuildContext context) {

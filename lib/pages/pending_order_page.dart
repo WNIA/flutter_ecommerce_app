@@ -1,3 +1,4 @@
+import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:autism_project_demo_2/widgets/pending_order_list_pagination.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +14,24 @@ class PendingOrderPage extends StatefulWidget {
 
 class _PendingOrderPageState extends State<PendingOrderPage> {
   LocalJsonService local = new LocalJsonService();
-  PendingOrderAPIService _apiService = new PendingOrderAPIService();
+  String token = "";
+  List order = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
-  /*
-   * FutureBuilder is fetching data from local json file
-   */
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 7), () => Provider.of<PendingOrderAPIService>(context, listen: false).fetchPendingOrderPagination(1)),//5 sec delay to counter server error - @WNIA
-        // future: _apiService.fetchPendingOrderPagination(1),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
-          return snapshot.hasData
-              ? PendingOrderListPagination(snapshot.data, 1)
-              : Center(child: CircularProgressIndicator());
-        });
+      // future: Future.delayed(const Duration(seconds: 7), () => Provider.of<PendingOrderAPIService>(context, listen: false).fetchPendingOrderPagination(1)),//5 sec delay to counter server error - @WNIA
+      future: Provider.of<PendingOrderAPIService>(context, listen: false).fetchPendingOrderPagination(1, Constants.myToken),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) print(snapshot.error);
+        return snapshot.hasData
+            ? PendingOrderListPagination(snapshot.data, 1)
+            : Center(child: CircularProgressIndicator());
+      });
   }
 }

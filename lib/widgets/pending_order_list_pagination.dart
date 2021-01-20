@@ -1,3 +1,4 @@
+import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/pages/pending_order_details_and_map_page.dart';
 import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class _PendingOrderListPaginationState
     extends State<PendingOrderListPagination> {
   ScrollController _controller;
   bool isLoading = false;
+  String token = "";
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _PendingOrderListPaginationState
     super.dispose();
   }
 
+
 /*
 * _scrollListener fetches more data when it reaches the end of the screen
 * method for pagination
@@ -40,15 +43,16 @@ class _PendingOrderListPaginationState
     try {
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
-
-        // print("end scroll.............page.....${widget.currentPage}");
+        print("end scroll.............page.....${widget.currentPage}");
         List temp =
             await Provider.of<PendingOrderAPIService>(context, listen: false)
-                .fetchPendingOrderPagination(widget.currentPage + 1);
+                .fetchPendingOrderPagination(widget.currentPage + 1, Constants.myToken);
         // print("....... ${widget.currentPage}");
         widget.data.addAll(temp);
         widget.currentPage++;
-        setState(() {});
+        setState(() {
+
+        });
       }
     } catch (e) {
       print(e);
@@ -71,11 +75,9 @@ class _PendingOrderListPaginationState
         });
   }
 
-  _overlayProgressbar() {
-    return Container(child: Center(child: CircularProgressIndicator()));
-  }
 
   pendingOrderListItem(int index, List data) {
+
     DateTime date = DateTime.parse(data[index]['Created']);
     String format = DateFormat('dd/MM/yyyy').format(date);
     return Padding(

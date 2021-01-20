@@ -1,7 +1,7 @@
+import 'file:///D:/AndroidStudioProjects/autism_project_demo_2/autism_project_demo_2/lib/widgets/Initialize_pages.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/helper/validators.dart';
 import 'package:autism_project_demo_2/models/login_request_model.dart';
-import 'package:autism_project_demo_2/pages/home_page.dart';
 import 'package:autism_project_demo_2/services/login_api_service.dart';
 
 import 'package:flutter/material.dart';
@@ -53,8 +53,9 @@ class _SignInScreenState extends State<SignInScreen> {
             //TODO: Simplify saving data in shared preferences - @WNIA
             SharedPrefs.saveUserLoggedInSharedPref(_response.success);
             SharedPrefs.saveUserJWTSharedPref(_response.jwt);
+            SharedPrefs.saveUserDataSharedPref(_response.data);
 
-            Navigator.pushReplacementNamed(context, HomePage.routeName);
+            Navigator.pushReplacementNamed(context, Initialize.routeName);
           } else {
             setState(() {
               isLoading = false;

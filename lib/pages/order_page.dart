@@ -1,4 +1,4 @@
-import 'package:autism_project_demo_2/helper/signout.dart';
+import 'package:autism_project_demo_2/helper/sign_out.dart';
 import 'package:autism_project_demo_2/pages/delivered_order_page.dart';
 import 'package:autism_project_demo_2/pages/pending_order_page.dart';
 import 'package:flutter/material.dart';
@@ -17,26 +17,7 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Order"),
-          actions: [
-            GestureDetector(
-              onTap: () {
-                signOut(context);
-              },
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Icon(Icons.exit_to_app)),
-            )
-          ],
-          bottom: TabBar(
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(child: Text("PENDING", style: TextStyle(fontWeight: FontWeight.bold))),
-              Tab(child: Text("DELIVERY", style: TextStyle(fontWeight: FontWeight.bold))),
-            ],
-          ),
-        ),
+        appBar: appBarOrderPage(context),
         body: TabBarView(
           children: [
             PendingOrderPage(),
@@ -45,5 +26,28 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
         ),
       ),
     );
+  }
+
+  AppBar appBarOrderPage(BuildContext context) {
+    return AppBar(
+        title: Text("Order"),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              signOut(context);
+            },
+            child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Icon(Icons.exit_to_app)),
+          )
+        ],
+        bottom: TabBar(
+          indicatorColor: Colors.white,
+          tabs: [
+            Tab(child: Text("PENDING", style: TextStyle(fontWeight: FontWeight.bold))),
+            Tab(child: Text("DELIVERY", style: TextStyle(fontWeight: FontWeight.bold))),
+          ],
+        ),
+      );
   }
 }

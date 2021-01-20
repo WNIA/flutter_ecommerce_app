@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/models/pending_order_response_model.dart';
 import 'package:flutter/material.dart';
 
@@ -11,38 +10,31 @@ import 'package:flutter/material.dart';
       * HttpClient used to preserve header
       * Data chunks are stored in StringBuffer -> Completer[when completed] -> String[for json.decode] -> List[returns]
       * @WNIA*/
-class PendingOrderAPIService extends ChangeNotifier{
-  Future<List> fetchPendingOrderPagination(int page) async {
+class PendingOrderAPIService extends ChangeNotifier {
+  Future<List> fetchPendingOrderPagination(int page, String token) async {
     try {
-      String url =
-          "http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php";
-      String token = await SharedPrefs.getUserJWTSharedPref();
-
-      String stringToDecode = "";
-
-      PendingOrderResponseModel responseModel = new PendingOrderResponseModel();
-
-      List data = new List();
-
-      final client = HttpClient();
       final stringBuffer = StringBuffer();
       final completer = Completer<String>();
+
+      String stringToDecode = "";
+      List data = new List();
+      PendingOrderResponseModel responseModel = new PendingOrderResponseModel();
+      String url =
+          "http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php";
+      String _token = token;
+      final client = HttpClient();
       final request = await client.postUrl(Uri.parse(url));
       request.headers
           .set("Content-Type", "application/json", preserveHeaderCase: true);
       request.headers
           .set("Accept", "application/json", preserveHeaderCase: true);
-      request.headers.set("Authorization", token, preserveHeaderCase: true);
-
+      request.headers.set("Authorization", _token, preserveHeaderCase: true);
       request.write(
           '{"limit": 10,"page": $page,"Latitude": 23.7747523,"Longititude": 90.3654215}');
-
       final response = await request.close();
-
+      print(response.statusCode);
       response.transform(utf8.decoder).listen((contents) {
-        if (contents.isNotEmpty) {
-          stringBuffer.write(contents);
-        }
+        stringBuffer.write(contents);
       }, onDone: () => completer.complete(stringBuffer.toString()));
       stringToDecode = await completer.future;
       print(stringToDecode);

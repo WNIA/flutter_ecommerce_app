@@ -53,7 +53,6 @@ class _MyAppState extends State<MyApp> {
             home: userLoggedIn != null ? (userLoggedIn
                 ? HomePage()
                 : Authenticate()) : Authenticate(),
-            // home: userLoggedIn != null ?(userLoggedIn ? HomePage() : Authenticate()) : Authenticate(),
             routes: routeList()
         ),
     );

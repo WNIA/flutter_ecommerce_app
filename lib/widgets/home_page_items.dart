@@ -1,5 +1,7 @@
-import 'package:autism_project_demo_2/helper/signout.dart';
+import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:flutter/material.dart';
+
+import 'appbar_widget.dart';
 
 class HomePageItems extends StatefulWidget {
   @override
@@ -10,39 +12,46 @@ class _HomePageItemsState extends State<HomePageItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home"),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              signOut(context);
-            },
-            child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
-          )
-        ],
+      appBar: appBarMain(context, "Home"),
+      body: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Container(
+          height: 100,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: [
+                  BoxShadow(color: Colors.blue[50], blurRadius: 2, spreadRadius: 1)
+                ]
+            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${Constants.numOfPendingOrders}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  Text('Pending', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${Constants.numOfProcessing}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  Text('Processing', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('${Constants.numOfDelivered}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                  Text('Delivered', style: TextStyle(color: Colors.grey)),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
-      // padding: const EdgeInsets.fromLTRB(10.0, 8.0, 10.0, 8.0),
-      // child: Column(
-      //   children: [
-      //     Card(
-      //       elevation: 2.0,
-      //       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //         children: [
-      //           Column(
-      //             children: [
-      //               Text("Pending"),
-      //               Text("${Constants.numOfPendingOrders}")
-      //             ],
-      //           ),
-      //           Text("Processing"),
-      //           Text("Delivered"),
-      //         ],
-      //       ),
-      //     )
-      //   ],
-      // ),
     );
   }
 }
