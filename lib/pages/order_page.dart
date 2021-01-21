@@ -1,6 +1,6 @@
-import 'package:autism_project_demo_2/helper/sign_out.dart';
 import 'package:autism_project_demo_2/pages/delivered_order_page.dart';
 import 'package:autism_project_demo_2/pages/pending_order_page.dart';
+import 'package:autism_project_demo_2/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 
 class OrderDisplayPage extends StatefulWidget {
@@ -28,32 +28,4 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
     );
   }
 
-  AppBar appBarOrderPage(BuildContext context) {
-    return AppBar(
-        title: Text("Order"),
-      actions: [
-        GestureDetector(
-          onTap: () {
-
-          },
-          child: Icon(Icons.credit_card),
-        ),
-        SizedBox(width: 8),
-        GestureDetector(
-          onTap: (){
-
-          },
-          child: Icon(Icons.notifications),
-        ),
-        SizedBox(width: 10),
-      ],
-        bottom: TabBar(
-          indicatorColor: Colors.white,
-          tabs: [
-            Tab(child: Text("PENDING", style: TextStyle(fontWeight: FontWeight.bold))),
-            Tab(child: Text("DELIVERY", style: TextStyle(fontWeight: FontWeight.bold))),
-          ],
-        ),
-      );
-  }
 }
