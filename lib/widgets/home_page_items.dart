@@ -1,4 +1,5 @@
 import 'package:autism_project_demo_2/helper/constants.dart';
+import 'package:autism_project_demo_2/widgets/last_five_sales_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'appbar_widget.dart';
@@ -55,7 +56,7 @@ class _HomePageItemsState extends State<HomePageItems> {
               ),
               SizedBox(height: 8),
               Container(
-                  height: 400,
+                  height: 300,
                   width: double.infinity,
                   decoration: boxDeco(),
                   child: Padding(
@@ -63,6 +64,7 @@ class _HomePageItemsState extends State<HomePageItems> {
                     child: Column(
                       children: [
                         Text('Last Five Sales Chart'),
+                        Expanded(child: LastFiveSalesChart()),
                       ],
                     ),
                   ))

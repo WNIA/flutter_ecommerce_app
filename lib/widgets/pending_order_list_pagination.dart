@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'box_deco_widget.dart';
+
 class PendingOrderListPagination extends StatefulWidget {
   List data;
   int currentPage;
@@ -86,12 +88,7 @@ class _PendingOrderListPaginationState
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
         height: 192,
         width: double.infinity,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(color: Colors.grey, blurRadius: 2, spreadRadius: 1)
-            ]),
+        decoration: boxDeco(),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,

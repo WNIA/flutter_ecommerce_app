@@ -1,10 +1,9 @@
-import 'package:autism_project_demo_2/models/login_request_model.dart';
+import 'package:autism_project_demo_2/models/login_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs{
   static String sharedPrefUserLoggedInKey = "ISLOGGEDIN";
   static String sharedPrefUserJWTKey = "USERJWTKEY";
-  static String sharedPrefUserLoginData = "USERLOGINDATA";
 
   //TODO: catch all data from login api - @WNIA
 
@@ -19,11 +18,7 @@ class SharedPrefs{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return await prefs.setString(sharedPrefUserJWTKey, userJWT);
   }
-  static Future<bool> saveUserLoginDataSharedPref(LoginRequestModel userLoginData) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String data = loginRequestToJson(userLoginData);
-    return await prefs.setString(sharedPrefUserLoginData, data);
-  }
+
   /*
    * Getting data from shared preferences
    */
@@ -34,9 +29,5 @@ class SharedPrefs{
   static Future<String> getUserJWTSharedPref() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(sharedPrefUserJWTKey);
-  }
-  static Future<String> getUserLoginDataSharedPref() async{
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(sharedPrefUserLoginData);
   }
 }

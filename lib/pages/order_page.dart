@@ -31,16 +31,22 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
   AppBar appBarOrderPage(BuildContext context) {
     return AppBar(
         title: Text("Order"),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              signOut(context);
-            },
-            child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Icon(Icons.exit_to_app)),
-          )
-        ],
+      actions: [
+        GestureDetector(
+          onTap: () {
+
+          },
+          child: Icon(Icons.credit_card),
+        ),
+        SizedBox(width: 8),
+        GestureDetector(
+          onTap: (){
+
+          },
+          child: Icon(Icons.notifications),
+        ),
+        SizedBox(width: 10),
+      ],
         bottom: TabBar(
           indicatorColor: Colors.white,
           tabs: [
