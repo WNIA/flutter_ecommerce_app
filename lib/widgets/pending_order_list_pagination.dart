@@ -165,20 +165,7 @@ class _PendingOrderListPaginationState
               Row(
                 children: [
                   Spacer(),
-                  RaisedButton(
-                    onPressed: () {
-                      print(index);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  PendingOrderDetailsPage(data[index], index)));
-                    },
-                    color: Colors.lightBlue,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Text('View', style: TextStyle(color: Colors.white)),
-                  ),
+                  raisedButtonForView(index, data),
                   SizedBox(width: 10)
                 ],
               )
@@ -187,5 +174,22 @@ class _PendingOrderListPaginationState
         ),
       ),
     );
+  }
+
+  RaisedButton raisedButtonForView(int index, List data) {
+    return RaisedButton(
+                  onPressed: () {
+                    print(index);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                PendingOrderDetailsPage(data[index], index)));
+                  },
+                  color: Colors.lightBlue,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Text('View', style: TextStyle(color: Colors.white)),
+                );
   }
 }
