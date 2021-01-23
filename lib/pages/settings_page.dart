@@ -53,7 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       )
                     : Container(),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Divider(thickness: 1),
               SizedBox(height: 10),
               Text('Account',
@@ -61,7 +61,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       fontSize: 20,
                       color: Colors.black54,
                       fontWeight: FontWeight.w400)),
-              SizedBox(height: 14),
+              SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePage(userData)));
@@ -75,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, ChangePasswordPage.routeName);
@@ -88,7 +88,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
                   signOut(context);
@@ -101,9 +101,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
               Divider(thickness: 1),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
+              Text('Settings',
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w400)),
+              SizedBox(height: 10),
               Row(
                 children: [
                   Icon(Icons.help_outline_outlined,
@@ -112,7 +118,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Text('Help', style: TextStyle(fontSize: 18)),
                 ],
               ),
-              SizedBox(height: 12),
+              SizedBox(height: 10),
               Row(
                 children: [
                   Icon(Icons.policy_outlined, size: 50, color: Colors.black54),
@@ -120,8 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   Text('Policy', style: TextStyle(fontSize: 18)),
                 ],
               ),
-              SizedBox(height: 12),
-              Divider(thickness: 1)
+              SizedBox(height: 10),
             ],
           ),
         ),

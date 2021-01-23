@@ -4,6 +4,7 @@ import 'package:autism_project_demo_2/pages/order_page.dart';
 import 'package:autism_project_demo_2/pages/settings_page.dart';
 import 'package:autism_project_demo_2/widgets/home_page_items.dart';
 import 'package:flutter/material.dart';
+
 class HomePage extends StatefulWidget {
   static final routeName = '/home_page';
   @override
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

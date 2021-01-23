@@ -1,4 +1,4 @@
-import 'package:autism_project_demo_2/pages/deliveries_page.dart';
+import 'package:autism_project_demo_2/pages/finished_deliveries_page.dart';
 import 'package:autism_project_demo_2/pages/notice_page.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +8,7 @@ AppBar appBarMain(BuildContext context, String titleText) {
     actions: [
       GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, DeliveriesPage.routeName);
+          Navigator.pushNamed(context, FinishedDeliveriesPage.routeName);
         },
         child: Icon(Icons.credit_card),
       ),
@@ -30,7 +30,7 @@ AppBar appBarOrderPage(BuildContext context) {
     actions: [
       GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, DeliveriesPage.routeName);
+          Navigator.pushNamed(context, FinishedDeliveriesPage.routeName);
         },
         child: Icon(Icons.credit_card),
       ),
