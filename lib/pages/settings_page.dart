@@ -1,5 +1,6 @@
 import 'package:autism_project_demo_2/helper/sign_out.dart';
 import 'package:autism_project_demo_2/models/profile_response_model.dart';
+import 'package:autism_project_demo_2/pages/change_password_page.dart';
 import 'package:autism_project_demo_2/pages/update_profile_page.dart';
 import 'package:autism_project_demo_2/services/profile_api_service.dart';
 import 'package:autism_project_demo_2/widgets/appbar_widget.dart';
@@ -76,7 +77,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
               SizedBox(height: 12),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, ChangePasswordPage.routeName);
+                },
                 child: Row(
                   children: [
                     Icon(Icons.lock_outlined, size: 50, color: Colors.black54),

@@ -105,20 +105,22 @@ Navigator.pop(context);
                   ),
                   SizedBox(height: 10),
                   TextFormField(
+                    enabled: false,
                     initialValue: widget.userData.data.email,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
-                        labelText: 'Email Address',
+                        labelText: 'Email Address (Cannot Change)',
                         prefixIcon: Icon(Icons.email_outlined),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15))),
                   ),
                   SizedBox(height: 10),
                   TextFormField(
+                    enabled: false,
                     initialValue: widget.userData.data.mobileNumber,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        labelText: 'Mobile Number',
+                        labelText: 'Mobile Number (Cannot Change)',
                         prefixIcon: Icon(Icons.phone_android),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15))),
@@ -136,14 +138,16 @@ Navigator.pop(context);
                   SizedBox(height: 10),
                   Center(
                       child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: RaisedButton(
-                              onPressed: () {
-
-                              },
-                              color: Colors.amber,
-                              textColor: Colors.white,
-                              child: Text('Update'))))
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 45,
+                        child: RaisedButton(
+                            onPressed: () {},
+                            color: Colors.pink,
+                            shape:
+                            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                            textColor: Colors.white,
+                            child: Text('Update')),
+                      ))
                 ],
               ),
             )
