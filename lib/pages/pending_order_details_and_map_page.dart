@@ -9,8 +9,9 @@ import 'package:intl/intl.dart';
 class PendingOrderDetailsPage extends StatefulWidget {
   static final routeName = '/pending_order_details_page';
   Map data;
+  int index;
 
-  PendingOrderDetailsPage(this.data);
+  PendingOrderDetailsPage(this.data, this.index);
 
   @override
   _PendingOrderDetailsPageState createState() =>
@@ -20,12 +21,12 @@ class PendingOrderDetailsPage extends StatefulWidget {
 class _PendingOrderDetailsPageState extends State<PendingOrderDetailsPage> {
   GoogleMapController _mapController;
   Position _currentPosition;
-  String _currentaddress = "";
+  String _currentAddress = "";
 
 /*Setting markers to show user location[red/default] and order location[blue]
 * @WNIA
 * */
-  Set<Marker> _createMarker() {
+  _createMarker() {
     try {
       return <Marker>[
         Marker(
@@ -78,11 +79,15 @@ fetching route from user location to order location
     String postalCode = placeMark.postalCode;
     String country = placeMark.country;
     String address =
-        "${name}, ${subLocality}, ${locality} ${postalCode}, ${country}";
+        "$name, $subLocality, $locality $postalCode, $country";
 
-    print(address);
+    print(name);
+    print(subLocality);
+    print(locality);
+    print(postalCode);
+    print(country);
     setState(() {
-      _currentaddress = address;
+      _currentAddress = address;
     });
   }
 
@@ -92,6 +97,7 @@ fetching route from user location to order location
 * */
   @override
   void initState() {
+    print('index is ${widget.index}');
     requestLocationPermission();
     getCurrentLatLng();
     super.initState();
@@ -116,7 +122,7 @@ fetching route from user location to order location
         body: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: GoogleMap(
                   // markers: _markerList.toSet(),
                   onMapCreated: _mapCreated,
@@ -133,28 +139,34 @@ fetching route from user location to order location
               child: Column(
                 children: [
                   Row(
+                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text("Order Date: ",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15.0)),
-                      Text(format, style: TextStyle(fontSize: 15.0)),
+                              fontWeight: FontWeight.bold, fontSize: 15.0, color: Colors.grey)),
+                      Text(format, style: TextStyle(fontSize: 15.0, color: Colors.grey)),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(Icons.place_outlined, color: Colors.blue),
-                      Text(_currentaddress, style: TextStyle(fontSize: 16))
+                      Icon(Icons.place_outlined, color: Colors.brown, size: 30),
+                      SizedBox(width: 4),
+                      Flexible(child: Text(_currentAddress,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 17.0, color: Colors.blueGrey)))
                     ],
                   ),
+                  SizedBox(height: 8),
                   Row(
                     children: [
-                      Icon(Icons.place, color: Colors.blue),
+                      Icon(Icons.place, color: Colors.blueGrey, size: 30),
+                      SizedBox(width: 4),
                       Flexible(
                           child: Text(widget.data["OrderAddress"],
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 16.0)))
+                              style: TextStyle(fontSize: 17.0, color: Colors.brown)))
                     ],
                   ),
                 ],
@@ -162,7 +174,7 @@ fetching route from user location to order location
             ),
             Spacer(),
             SizedBox(
-              height: 55,
+              height: 50,
               width: MediaQuery.of(context).size.width,
               child: RaisedButton(
                   onPressed: () {},

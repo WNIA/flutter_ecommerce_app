@@ -1,9 +1,11 @@
 import 'package:autism_project_demo_2/helper/authenticate.dart';
-import 'package:autism_project_demo_2/helper/route_list.dart';
+import 'file:///D:/AndroidStudioProjects/autism_project_demo_2/autism_project_demo_2/lib/utils/route_list.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/pages/home_page.dart';
-import 'package:autism_project_demo_2/pages/order_page.dart';
+import 'package:autism_project_demo_2/utils/provider_list.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -37,17 +39,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Autism Project Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        accentColor: Colors.black,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: userLoggedIn != null ?(userLoggedIn ? HomePage() : Authenticate()) : Authenticate(),
-      routes: routeList(),
+    return MultiProvider(
+        providers: providerList(),
+        child: MaterialApp(
+            title: 'Autism Project Demo',
+            theme: ThemeData(
+              scaffoldBackgroundColor: Colors.white,
+              primarySwatch: Colors.blue,
+              visualDensity: VisualDensity.adaptivePlatformDensity,
+              accentColor: Colors.black,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: userLoggedIn != null ? (userLoggedIn
+                ? HomePage()
+                : Authenticate()) : Authenticate(),
+            routes: routeList()
+        ),
     );
   }
 }
