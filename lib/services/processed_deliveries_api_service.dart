@@ -2,24 +2,24 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:autism_project_demo_2/models/finished_deliveries_response_model.dart';
+import 'package:autism_project_demo_2/models/processed_deliveries_response_model.dart';
 import 'package:flutter/material.dart';
 
-class FinishedDeliveriesAPIService extends ChangeNotifier{
-  fetchFinishedDeliveriesPagination(int page, String token) async {
+class ProcessedDeliveriesAPIService extends ChangeNotifier{
+  fetchProcessedDeliveriesPagination(int page, String token) async {
     try {
       final stringBuffer = StringBuffer();
       final completer = Completer<String>();
 
       String stringToDecode = "";
       List data = new List();
-      FinishedDeliveriesResponseModel responseModel = new FinishedDeliveriesResponseModel();
+      ProcessedDeliveriesResponseModel responseModel = new ProcessedDeliveriesResponseModel();
       String _token = token;
       final client = HttpClient();
-      final request = await client.postUrl(Uri.parse("http://199.192.28.11/stationary/v1/get-delivery-own-deliveries-pagination.php"));
+      final request = await client.postUrl(Uri.parse("http://199.192.28.11/stationary/v1/get-delivery-processing-pagination.php"));
       request.headers.set("Authorization", _token, preserveHeaderCase: true);
       request.write(
-          '{"limit": 10,"page": $page}');
+          '{"limit": 10,"page": $page,"Latitude": 23.8084641,"Longititude": 90.4277429}');
       final response = await request.close();
       print(response.statusCode);
       response.transform(utf8.decoder).listen((contents) {
@@ -27,7 +27,7 @@ class FinishedDeliveriesAPIService extends ChangeNotifier{
       }, onDone: () => completer.complete(stringBuffer.toString()));
       stringToDecode = await completer.future;
       print(stringToDecode);
-      responseModel = finishedDeliveriesResponseModelFromJson(stringToDecode);
+      responseModel = processedDeliveriesResponseModelFromJson(stringToDecode);
       int len = responseModel.data.length;
       for (int i = 0; i < len; i++) {
         data.add(responseModel.data[i].toJson());

@@ -1,8 +1,6 @@
-import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/widgets/last_five_sales_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:geolocator_platform_interface/src/models/position.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'appbar_widget.dart';
@@ -36,8 +34,10 @@ class _HomePageItemsState extends State<HomePageItems> {
     return Scaffold(
         appBar: appBarMain(context, "Home"),
         body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: ListView(children: [
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+              clipBehavior: Clip.none,
+              children: [
             Container(
               height: 80,
               decoration: boxDeco(),
@@ -47,7 +47,7 @@ class _HomePageItemsState extends State<HomePageItems> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('${Constants.numOfPendingOrders}',
+                      Text('0',
                           style: orderSummaryTextStyle()),
                       Text('Pending', style: TextStyle(color: Colors.grey)),
                     ],
@@ -55,7 +55,7 @@ class _HomePageItemsState extends State<HomePageItems> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('${Constants.numOfProcessing}',
+                      Text('0',
                           style: orderSummaryTextStyle()),
                       Text('Processing', style: TextStyle(color: Colors.grey)),
                     ],
@@ -63,7 +63,7 @@ class _HomePageItemsState extends State<HomePageItems> {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('${Constants.numOfDelivered}',
+                      Text('0',
                           style: orderSummaryTextStyle()),
                       Text('Delivered', style: TextStyle(color: Colors.grey)),
                     ],
@@ -74,7 +74,6 @@ class _HomePageItemsState extends State<HomePageItems> {
             SizedBox(height: 8),
             Container(
                 height: 300,
-                width: double.infinity,
                 decoration: boxDeco(),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -86,10 +85,10 @@ class _HomePageItemsState extends State<HomePageItems> {
                   ),
                 )),
             SizedBox(height: 8.0),
-            _currentPosition != null
-                ? Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: GoogleMap(
+            Container(
+              height: MediaQuery.of(context).size.height * 0.4,
+              child: _currentPosition != null
+                  ? GoogleMap(
                       initialCameraPosition: CameraPosition(
                         zoom: 10.0,
                         target: LatLng(_currentPosition.latitude,
@@ -97,9 +96,9 @@ class _HomePageItemsState extends State<HomePageItems> {
                       ),
                       onMapCreated: _mapCreated,
                       markers: _createMarker(),
-                    ),
-                  )
-                : Container(),
+                    )
+                  : Container(),
+            ),
           ]),
         ));
   }
@@ -107,13 +106,14 @@ class _HomePageItemsState extends State<HomePageItems> {
   _mapCreated(GoogleMapController controller) {
     controller = _controller;
   }
-  Set<Marker> _createMarker() {
+
+  _createMarker() {
     try {
       return <Marker>[
         Marker(
             markerId: MarkerId("my location"),
             position:
-            LatLng(_currentPosition.latitude, _currentPosition.longitude),
+                LatLng(_currentPosition.latitude, _currentPosition.longitude),
             icon: BitmapDescriptor.defaultMarker,
             infoWindow: InfoWindow(title: "Home")),
       ].toSet();
@@ -121,7 +121,6 @@ class _HomePageItemsState extends State<HomePageItems> {
       print(e);
     }
   }
-
 
   TextStyle orderSummaryTextStyle() {
     return TextStyle(fontWeight: FontWeight.bold, fontSize: 20);

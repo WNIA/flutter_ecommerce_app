@@ -1,3 +1,4 @@
+import 'package:autism_project_demo_2/pages/notice_details_page.dart';
 import 'package:autism_project_demo_2/widgets/box_deco_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,13 @@ class _NoticePageState extends State<NoticePage> {
                 ),
                 Positioned(
                     left: 0,
-                    bottom: 20,
+                    bottom: 25,
                     child: Container(
                         padding: const EdgeInsets.all(5.0),
-                        color: Colors.grey.withOpacity(0.5),
+                        color: Colors.white,
                         child: Text('28/9/2006',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 16))))
+                                TextStyle(fontSize: 14))))
               ]),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -64,7 +65,9 @@ class _NoticePageState extends State<NoticePage> {
                       children: [
                         Spacer(),
                         RaisedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => NoticeDetailsPage()));
+                          },
                           color: Colors.lightBlue,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),

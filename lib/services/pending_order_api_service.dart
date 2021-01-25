@@ -20,7 +20,7 @@ class PendingOrderAPIService extends ChangeNotifier{
   List<dynamic> customerPendingOrderList;
 
 
-  Future<List> fetchPendingOrderPagination(int page, String token) async {
+  fetchPendingOrderPagination(int page, String token) async {
     try {
       final stringBuffer = StringBuffer();
       final completer = Completer<String>();
@@ -28,11 +28,10 @@ class PendingOrderAPIService extends ChangeNotifier{
       String stringToDecode = "";
       List data = new List();
       PendingOrderResponseModel responseModel = new PendingOrderResponseModel();
-      String url =
-          "http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php";
+
       String _token = token;
       final client = HttpClient();
-      final request = await client.postUrl(Uri.parse(url));
+      final request = await client.postUrl(Uri.parse("http://199.192.28.11/stationary/v1/get-delivery-pending-order-pagination.php"));
       request.headers
           .set("Content-Type", "application/json", preserveHeaderCase: true);
       request.headers

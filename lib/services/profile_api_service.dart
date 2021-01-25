@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class ProfileAPIService extends ChangeNotifier {
   ProfileResponseModel _responseModel = ProfileResponseModel();
 
-  Future<ProfileResponseModel> fetchProfileData() async {
+  fetchProfileData() async {
     try {
       String stringToDecode = "";
       final client = HttpClient();

@@ -1,6 +1,6 @@
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/services/finished_deliveries_api_service.dart';
-import 'package:autism_project_demo_2/widgets/finished_deliveries_list_pagination.dart';
+import 'package:autism_project_demo_2/widgets/finished_deliveries_pagination.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class _FinishedDeliveriesPageState extends State<FinishedDeliveriesPage> {
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             return snapshot.hasData
-                ? FinishedDeliveriesListPagination(snapshot.data, 1)
+                ? FinishedDeliveriesPagination(snapshot.data, 1)
                 : Center(child: CircularProgressIndicator());
           })
     );

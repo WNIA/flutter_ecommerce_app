@@ -14,13 +14,13 @@ class ProfileResponseModel {
 
   int status;
   bool success;
-  Data data;
+  ProfileData data;
   String message;
 
   factory ProfileResponseModel.fromJson(Map<String, dynamic> json) => ProfileResponseModel(
     status: json["status"],
     success: json["success"],
-    data: Data.fromJson(json["data"]),
+    data: ProfileData.fromJson(json["data"]),
     message: json["message"],
   );
 
@@ -32,8 +32,8 @@ class ProfileResponseModel {
   };
 }
 
-class Data {
-  Data({
+class ProfileData {
+  ProfileData({
     this.id,
     this.name,
     this.email,
@@ -63,7 +63,7 @@ class Data {
   dynamic latitude;
   dynamic longitude;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
     id: json["Id"],
     name: json["Name"],
     email: json["Email"],

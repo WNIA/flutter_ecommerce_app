@@ -26,7 +26,7 @@ class _PendingOrderDetailsPageState extends State<PendingOrderDetailsPage> {
 /*Setting markers to show user location[red/default] and order location[blue]
 * @WNIA
 * */
-  Set<Marker> _createMarker() {
+  _createMarker() {
     try {
       return <Marker>[
         Marker(

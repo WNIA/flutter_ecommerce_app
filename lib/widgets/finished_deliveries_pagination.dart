@@ -1,25 +1,25 @@
 import 'package:autism_project_demo_2/helper/constants.dart';
-import 'package:autism_project_demo_2/pages/pending_order_details_and_map_page.dart';
-import 'package:autism_project_demo_2/services/pending_order_api_service.dart';
+import 'package:autism_project_demo_2/pages/finished_deliveries_details_page.dart';
+import 'package:autism_project_demo_2/services/finished_deliveries_api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import 'box_deco_widget.dart';
 
-class PendingOrderListPagination extends StatefulWidget {
+class FinishedDeliveriesPagination extends StatefulWidget {
   List data;
   int currentPage;
 
-  PendingOrderListPagination(this.data, this.currentPage);
+  FinishedDeliveriesPagination(this.data, this.currentPage);
 
   @override
-  _PendingOrderListPaginationState createState() =>
-      _PendingOrderListPaginationState();
+  _FinishedDeliveriesPaginationState createState() =>
+      _FinishedDeliveriesPaginationState();
 }
 
-class _PendingOrderListPaginationState
-    extends State<PendingOrderListPagination> {
+class _FinishedDeliveriesPaginationState
+    extends State<FinishedDeliveriesPagination> {
   ScrollController _controller;
   bool isLoading = false;
   String token = "";
@@ -36,7 +36,6 @@ class _PendingOrderListPaginationState
     super.dispose();
   }
 
-
 /*
 * _scrollListener fetches more data when it reaches the end of the screen
 * method for pagination
@@ -46,15 +45,14 @@ class _PendingOrderListPaginationState
       if (_controller.offset >= _controller.position.maxScrollExtent &&
           !_controller.position.outOfRange) {
         print("end scroll.............page.....${widget.currentPage}");
-        List temp =
-            await Provider.of<PendingOrderAPIService>(context, listen: false)
-                .fetchPendingOrderPagination(widget.currentPage + 1, Constants.myToken);
+        List temp = await Provider.of<FinishedDeliveriesAPIService>(context,
+                listen: false)
+            .fetchFinishedDeliveriesPagination(
+                widget.currentPage + 1, Constants.myToken);
         // print("....... ${widget.currentPage}");
         widget.data.addAll(temp);
         widget.currentPage++;
-        setState(() {
-
-        });
+        setState(() {});
       }
     } catch (e) {
       print(e);
@@ -73,13 +71,11 @@ class _PendingOrderListPaginationState
           // if (index == widget.data.length-1)
           //   return isLoading ? _overlayProgressbar() : Container();
           // else
-          return pendingOrderListItem(index, widget.data);
+          return finishedDeliveriesListItem(index, widget.data);
         });
   }
 
-
-  pendingOrderListItem(int index, List data) {
-
+  Padding finishedDeliveriesListItem(int index, List data) {
     DateTime date = DateTime.parse(data[index]['Created']);
     String format = DateFormat('dd/MM/yyyy').format(date);
     return Padding(
@@ -115,15 +111,8 @@ class _PendingOrderListPaginationState
                       ],
                     ),
                     Spacer(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 3, vertical: 3),
-                      child: Text('new',
-                          style: TextStyle(fontSize: 18, color: Colors.white)),
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.amber[900], Colors.amber[200]])),
-                    ),
+                    Icon(Icons.check_circle_outline,
+                        size: 40, color: Colors.green[700]),
                     SizedBox(
                       width: 10,
                     )
@@ -133,11 +122,11 @@ class _PendingOrderListPaginationState
               Divider(),
               Row(
                 children: [
-                  Text("Address: ",
+                  Text("Invoice Number: ",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                   Flexible(
-                    child: Text(data[index]["OrderAddress"],
+                    child: Text(data[index]["InvoiceNumber"],
                         overflow: TextOverflow.ellipsis, maxLines: 1),
                   ),
                 ],
@@ -145,11 +134,11 @@ class _PendingOrderListPaginationState
               SizedBox(height: 2),
               Row(
                 children: [
-                  Text("Area: ",
+                  Text("Delivery Charge: ",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                   Flexible(
-                      child: Text(data[index]["OrderArea"],
+                      child: Text("${data[index]["DeliveryCharge"]}",
                           overflow: TextOverflow.ellipsis, maxLines: 1)),
                 ],
               ),
@@ -165,7 +154,18 @@ class _PendingOrderListPaginationState
               Row(
                 children: [
                   Spacer(),
-                  raisedButtonForView(index, data),
+                  RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FinishedDeliveriesDetailsPage()));
+                    },
+                    color: Colors.lightBlue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text('View', style: TextStyle(color: Colors.white)),
+                  ),
                   SizedBox(width: 10)
                 ],
               )
@@ -174,22 +174,5 @@ class _PendingOrderListPaginationState
         ),
       ),
     );
-  }
-
-  RaisedButton raisedButtonForView(int index, List data) {
-    return RaisedButton(
-                  onPressed: () {
-                    print(index);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                PendingOrderDetailsPage(data[index], index)));
-                  },
-                  color: Colors.lightBlue,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Text('View', style: TextStyle(color: Colors.white)),
-                );
   }
 }

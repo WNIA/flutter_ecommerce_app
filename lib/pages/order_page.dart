@@ -1,4 +1,4 @@
-import 'package:autism_project_demo_2/pages/delivered_order_page.dart';
+import 'package:autism_project_demo_2/pages/processed_deliveries_page.dart';
 import 'package:autism_project_demo_2/pages/pending_order_page.dart';
 import 'package:autism_project_demo_2/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class _OrderDisplayPageState extends State<OrderDisplayPage> {
         body: TabBarView(
           children: [
             PendingOrderPage(),
-            DeliveredOrderPage()
+            ProcessedDeliveriesPage()
           ],
         ),
       ),
