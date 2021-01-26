@@ -34,7 +34,7 @@ class _ProcessedDeliveriesDetailsPageState extends State<ProcessedDeliveriesDeta
     return Scaffold(
     appBar: AppBar(title: Text('Update Orders')),
     body: Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(15.0),
       child: ListView(
         clipBehavior: Clip.none,
         // mainAxisAlignment: MainAxisAlignment.center,

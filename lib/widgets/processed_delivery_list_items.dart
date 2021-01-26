@@ -47,7 +47,7 @@ class ProcessedDeliveryListItems extends StatelessWidget {
     String format = DateFormat('dd/MM/yyyy').format(date);
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0, right: 10),
+        padding: const EdgeInsets.only(bottom: 15.0, right: 15),
         child: Container(
             height: 200,
             width: 220,

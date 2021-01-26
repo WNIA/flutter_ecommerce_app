@@ -122,7 +122,7 @@ fetching route from user location to order location
         body: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.5,
+              height: MediaQuery.of(context).size.height * 0.55,
               child: GoogleMap(
                   // markers: _markerList.toSet(),
                   onMapCreated: _mapCreated,
@@ -150,23 +150,24 @@ fetching route from user location to order location
                   SizedBox(height: 10),
                   Row(
                     children: [
-                      Icon(Icons.place_outlined, color: Colors.brown, size: 30),
+                      Icon(Icons.place_outlined, color: Colors.blueGrey, size: 30),
                       SizedBox(width: 4),
                       Flexible(child: Text(_currentAddress,
                           maxLines: 1,
-                          overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 17.0, color: Colors.blueGrey)))
+                          overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 16.0, color: Colors.grey[700], fontWeight: FontWeight.bold)))
                     ],
                   ),
                   SizedBox(height: 8),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Icon(Icons.place, color: Colors.blueGrey, size: 30),
                       SizedBox(width: 4),
                       Flexible(
                           child: Text(widget.data["OrderAddress"],
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 17.0, color: Colors.brown)))
+                              // maxLines: 1,
+                              // overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 16.0, color: Colors.grey[700], fontWeight: FontWeight.bold)))
                     ],
                   ),
                 ],
@@ -184,8 +185,8 @@ fetching route from user location to order location
                         topRight: Radius.circular(45.0),
                         topLeft: Radius.circular(45.0)),
                   ),
-                  child: Text("Accept Task",
-                      style: TextStyle(color: Colors.white))),
+                  child: Text("Accept",
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18))),
             )
           ],
         ));
