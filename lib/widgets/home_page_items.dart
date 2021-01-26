@@ -38,40 +38,60 @@ class _HomePageItemsState extends State<HomePageItems> {
           child: ListView(
               clipBehavior: Clip.none,
               children: [
-            Container(
-              height: 80,
-              decoration: boxDeco(),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  height: 90,
+                  width: 110,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[900],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('0',
                           style: orderSummaryTextStyle()),
-                      Text('Pending', style: TextStyle(color: Colors.grey)),
+                      Text('Pending', style: TextStyle(color: Colors.white)),
                     ],
                   ),
-                  Column(
+                ),
+                Container(
+                  height: 90,
+                  width: 110,
+                  decoration: BoxDecoration(
+                    color: Colors.red[900],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('0',
                           style: orderSummaryTextStyle()),
-                      Text('Processing', style: TextStyle(color: Colors.grey)),
+                      Text('Processing', style: TextStyle(color: Colors.white)),
                     ],
                   ),
-                  Column(
+                ),
+                Container(
+                  height: 90,
+                  width: 110,
+                  decoration: BoxDecoration(
+                    color: Colors.yellow[700],
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('0',
                           style: orderSummaryTextStyle()),
-                      Text('Delivered', style: TextStyle(color: Colors.grey)),
+                      Text('Delivered', style: TextStyle(color: Colors.white)),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 12),
             Container(
                 height: 300,
                 decoration: boxDeco(),
@@ -84,9 +104,9 @@ class _HomePageItemsState extends State<HomePageItems> {
                     ],
                   ),
                 )),
-            SizedBox(height: 8.0),
+            SizedBox(height: 12),
             Container(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: _currentPosition != null
                   ? GoogleMap(
                       initialCameraPosition: CameraPosition(
@@ -123,6 +143,6 @@ class _HomePageItemsState extends State<HomePageItems> {
   }
 
   TextStyle orderSummaryTextStyle() {
-    return TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+    return TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white);
   }
 }
