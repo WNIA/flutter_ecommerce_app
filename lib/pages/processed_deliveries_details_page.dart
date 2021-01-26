@@ -34,7 +34,7 @@ class _ProcessedDeliveriesDetailsPageState extends State<ProcessedDeliveriesDeta
     return Scaffold(
     appBar: AppBar(title: Text('Update Orders')),
     body: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: ListView(
         clipBehavior: Clip.none,
         // mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +112,7 @@ class _ProcessedDeliveriesDetailsPageState extends State<ProcessedDeliveriesDeta
           SizedBox(height: 15),
           FlatButton(
               onPressed: () {},
-              height: 50,
+              height: 70,
               child: Text('Cancel Order', style: TextStyle(color: Colors.white)),
               color: Colors.black)
         ],

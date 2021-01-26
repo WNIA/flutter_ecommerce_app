@@ -6,51 +6,50 @@ import 'package:provider/provider.dart';
 
 import 'box_deco_widget.dart';
 
-class ProcessedDeliveryListItems extends StatefulWidget {
+class ProcessedDeliveryListItems extends StatelessWidget {
   int orderId;
 
   ProcessedDeliveryListItems(this.orderId);
 
   @override
-  _ProcessedDeliveryListItemsState createState() =>
-      _ProcessedDeliveryListItemsState();
-}
-
-class _ProcessedDeliveryListItemsState
-    extends State<ProcessedDeliveryListItems> {
-  @override
   Widget build(BuildContext context) {
     final provider =
         Provider.of<ProcessedDeliveriesListAPIService>(context, listen: false);
     return FutureBuilder(
-        future: provider.fetchProcessedDeliveriesList(
-            Constants.myToken, widget.orderId),
+        future:
+            provider.fetchProcessedDeliveriesList(Constants.myToken, orderId),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData
               ? processedDeliveriesListViewBuilder(snapshot.data)
-              : Container(height: 200,);
+              : Container(
+                  height: 100,
+                );
         });
   }
 
   processedDeliveriesListViewBuilder(List data) {
-    return ListView.builder(
-      shrinkWrap: true,
-        itemCount: data.length,
-        itemBuilder: (BuildContext context, int index) {
-          return processedDeliveriesListItem(context, index, data);
-        });
+    return Container(
+      height: 200,
+      child: ListView.builder(
+          // shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          clipBehavior: Clip.none,
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, int index) {
+            return processedDeliveriesListItem(context, index, data);
+          }),
+    );
   }
 
-  processedDeliveriesListItem(
-      BuildContext context, int index, List data) {
+  processedDeliveriesListItem(BuildContext context, int index, List data) {
     DateTime date = DateTime.parse(data[index]['Created']);
     String format = DateFormat('dd/MM/yyyy').format(date);
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 15.0),
+        padding: const EdgeInsets.only(bottom: 15.0, right: 10),
         child: Container(
-            height: 230,
+            height: 200,
             width: 220,
             decoration: boxDeco(),
             child: Column(
@@ -61,17 +60,18 @@ class _ProcessedDeliveryListItemsState
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(15.0),
                           topRight: Radius.circular(15.0)),
-                      child: Image.network(data[index]["Picture"], height: 150, width: double.infinity),
+                      child: Image.network(data[index]["Picture"],
+                          height: 110, width: double.infinity, fit: BoxFit.cover),
                     ),
                     Positioned(
-                      top: 50,
+                        top: 50,
                         right: 0,
                         child: Container(
                             padding: const EdgeInsets.all(5.0),
                             color: Colors.pink,
                             child: Text(format,
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.white)))),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white)))),
                     Positioned(
                         left: 0,
                         top: 20,
@@ -79,21 +79,22 @@ class _ProcessedDeliveryListItemsState
                             padding: const EdgeInsets.all(5.0),
                             color: Colors.pink,
                             child: Text('Price: ${data[index]["Price"]} ৳',
-                                style:
-                                    TextStyle(fontSize: 12, color: Colors.white)))),
+                                style: TextStyle(
+                                    fontSize: 12, color: Colors.white)))),
                     Positioned(
                         left: 0,
                         bottom: 10,
                         child: Container(
                             padding: const EdgeInsets.all(5.0),
                             color: Colors.grey[200].withOpacity(0.5),
-                            child: Text(data[index]["Name"], style: TextStyle(fontSize: 12)))),
+                            child: Text(data[index]["Name"],
+                                style: TextStyle(fontSize: 12)))),
                   ],
                 ),
-                SizedBox(height: 5),
                 FlatButton(
                     onPressed: () {},
-                    child: Text('Cancel', style: TextStyle(color: Colors.white)),
+                    child:
+                        Text('Cancel', style: TextStyle(color: Colors.white)),
                     color: Colors.black),
                 Text('1')
               ],
