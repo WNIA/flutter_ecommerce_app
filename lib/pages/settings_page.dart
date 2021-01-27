@@ -2,7 +2,7 @@ import 'package:autism_project_demo_2/helper/sign_out.dart';
 import 'package:autism_project_demo_2/models/profile_response_model.dart';
 import 'package:autism_project_demo_2/pages/change_password_page.dart';
 import 'package:autism_project_demo_2/pages/update_profile_page.dart';
-import 'package:autism_project_demo_2/services/profile_api_service.dart';
+import 'package:autism_project_demo_2/services_provider//profile_api_service.dart';
 import 'package:autism_project_demo_2/widgets/appbar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

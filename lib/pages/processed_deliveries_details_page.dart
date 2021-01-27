@@ -1,6 +1,6 @@
 import 'package:autism_project_demo_2/helper/constants.dart';
 import 'package:autism_project_demo_2/models/processed_delivery_details_response_model.dart';
-import 'package:autism_project_demo_2/services/processed_deliveries_details_api_service.dart';
+import 'package:autism_project_demo_2/services_provider//processed_deliveries_details_api_service.dart';
 import 'package:autism_project_demo_2/widgets/processed_delivery_list_items.dart';
 import 'package:flutter/material.dart';
 import 'package:autism_project_demo_2/widgets/box_deco_widget.dart';

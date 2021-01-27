@@ -17,9 +17,6 @@ List<PendingOrderAPIService> get customerPendingOrderList =>
       * @WNIA*/
 class PendingOrderAPIService extends ChangeNotifier{
 
-  List<dynamic> customerPendingOrderList;
-
-
   fetchPendingOrderPagination(int page, String token) async {
     try {
       final stringBuffer = StringBuffer();
@@ -53,7 +50,7 @@ class PendingOrderAPIService extends ChangeNotifier{
         data.add(responseModel.data[i].toJson());
       }
       notifyListeners();
-      return customerPendingOrderList = data;
+      return data;
     } catch (e) {
       print(e);
     }
