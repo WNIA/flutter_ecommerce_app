@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 
 import 'box_deco_widget.dart';
 
+/*Author: Wasema Nooren Islam (@WNIA)*/
+
 class ProcessedDeliveryListItems extends StatelessWidget {
   int orderId;
 
@@ -61,7 +63,9 @@ class ProcessedDeliveryListItems extends StatelessWidget {
                           topLeft: Radius.circular(15.0),
                           topRight: Radius.circular(15.0)),
                       child: Image.network(data[index]["Picture"],
-                          height: 110, width: double.infinity, fit: BoxFit.cover),
+                          height: 110,
+                          width: double.infinity,
+                          fit: BoxFit.cover),
                     ),
                     Positioned(
                         top: 50,

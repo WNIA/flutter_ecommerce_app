@@ -6,6 +6,7 @@ import 'package:autism_project_demo_2/models/processed_deliveries_response_model
 import 'package:flutter/material.dart';
 
 class ProcessedDeliveriesAPIService extends ChangeNotifier{
+  final client = HttpClient();
   fetchProcessedDeliveriesPagination(int page, String token) async {
     try {
       final stringBuffer = StringBuffer();
@@ -15,7 +16,7 @@ class ProcessedDeliveriesAPIService extends ChangeNotifier{
       List data = new List();
       ProcessedDeliveriesResponseModel responseModel = new ProcessedDeliveriesResponseModel();
       String _token = token;
-      final client = HttpClient();
+
       final request = await client.postUrl(Uri.parse("http://199.192.28.11/stationary/v1/get-delivery-processing-pagination.php"));
       request.headers.set("Authorization", _token, preserveHeaderCase: true);
       request.write(

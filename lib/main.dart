@@ -1,11 +1,12 @@
 import 'package:autism_project_demo_2/helper/authenticate.dart';
-import 'file:///D:/AndroidStudioProjects/autism_project_demo_2/autism_project_demo_2/lib/utils/route_list.dart';
 import 'package:autism_project_demo_2/helper/shared_preference.dart';
 import 'package:autism_project_demo_2/pages/home_page.dart';
 import 'package:autism_project_demo_2/utils/provider_list.dart';
+import 'package:autism_project_demo_2/utils/route_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/*Author: Wasema Nooren Islam (@WNIA)*/
 
 void main() {
   runApp(MyApp());

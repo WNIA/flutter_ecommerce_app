@@ -3,10 +3,10 @@ import 'package:autism_project_demo_2/models/login_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class LoginAPIService extends ChangeNotifier{
+class LoginAPIService extends ChangeNotifier {
   LoginResponseModel _userDataList = LoginResponseModel();
-  // LoginResponseModel get userDataList => _userDataList;
 
+  // LoginResponseModel get userDataList => _userDataList;
 
   Future<LoginResponseModel> fetchLoginResponse(
       LoginRequestModel requestModel) async {
